@@ -1,0 +1,30 @@
+@import '~carbon-components/scss/globals/scss/styles.scss';
+
+#root {
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.demo-app {
+  display: flex;
+  min-height: 100%;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.sidebar {
+  width: 300px;
+  line-height: 1.5;
+}
+
+.demo-app-sidebar-section {
+  padding: 2em;
+}
+
+.demo-app-main {
+  flex-grow: 1;
+  padding: 2em;
+}
