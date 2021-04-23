@@ -1,0 +1,240 @@
+{
+  "buildings": [
+    {
+      "id": 0,
+      "title": "Galvenā ēka"
+    },
+    {
+      "id": 1,
+      "title": "Dabas māja"
+    },
+    {
+      "id": 2,
+      "title": "Zinātņu māja"
+    },
+    {
+      "id": 3,
+      "title": "Ekonomikas un vadības fakultātes ēka"
+    }
+  ],
+  "rooms": [
+    {
+      "buildingId": 0,
+      "id": 0,
+      "title": "106.",
+      "occupancy": "50",
+      "inventoryNo": "106."
+    },
+    {
+      "buildingId": 1,
+      "id": 1,
+      "title": "107.",
+      "occupancy": "100",
+      "inventoryNo": "107."
+    },
+    {
+      "buildingId": 2,
+      "id": 2,
+      "title": "108.",
+      "occupancy": "150",
+      "inventoryNo": "108."
+    },
+    {
+      "buildingId": 3,
+      "id": 3,
+      "title": "109.",
+      "occupancy": "200",
+      "inventoryNo": "109."
+    },
+    {
+      "buildingId": 0,
+      "id": 4,
+      "title": "110.",
+      "occupancy": "50",
+      "inventoryNo": "106."
+    },
+    {
+      "buildingId": 1,
+      "id": 5,
+      "title": "111.",
+      "occupancy": "100",
+      "inventoryNo": "107."
+    },
+    {
+      "buildingId": 2,
+      "id": 6,
+      "title": "112.",
+      "occupancy": "150",
+      "inventoryNo": "108."
+    },
+    {
+      "buildingId": 3,
+      "id": 7,
+      "title": "113.",
+      "occupancy": "200",
+      "inventoryNo": "109."
+    }
+  ],
+  "reservations": [
+    {
+      "resourceId": "0",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 0,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "0",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 1,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ģeogrāfija",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "1",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 2,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ķīmija",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "1",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 3,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Fizika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "2",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 4,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ētika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "2",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 5,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Programmatūras izstrāde",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "3",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 6,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Algebra",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "3",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 7,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Matemātiskā analīze",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "4",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 8,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "4",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 9,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ģeogrāfija",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "5",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 10,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ķīmija",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "5",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 11,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Fizika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "6",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 12,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Ētika",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "6",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 13,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Programmatūras izstrāde",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "7",
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00:00",
+      "id": 14,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Algebra",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "7",
+      "start": "2021-02-02T10:30:00",
+      "end": "2021-02-02T12:00:00",
+      "id": 15,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Matemātiskā analīze",
+      "responsiblePerson": "Kondratovičš"
+    }
+  ]
+}

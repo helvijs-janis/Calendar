@@ -1,5 +1,7 @@
 @import '~carbon-components/scss/globals/scss/styles.scss';
 
+/// EventCalendar css
+
 #root {
   margin: 30px auto;
   overflow: auto;
@@ -26,5 +28,39 @@
 
 .demo-app-main {
   flex-grow: 1;
-  padding: 2em;
+  padding: 1em 0 1em 0;
+}
+
+/// Header css
+
+.demo-app-sidebar-section {
+  padding: 1em;
+}
+
+/// TopFilter css
+
+.bx--accordion__item {
+  border: none;
+}
+
+.bx--accordion__item:last-child {
+  border-bottom: none;
+}
+
+.bx--accordion {
+  background-color: #f4f4f4;
+}
+
+.bx--dropdown .bx--list-box__field {
+  background-color: white;
+  border-bottom: 1px solid #8d8d8d;
+}
+
+.bx--text-input {
+  background-color: white;
+  border-bottom: 1px solid #8d8d8d;
+}
+
+.bx--accordion__title {
+  font-weight: 400;
 }
