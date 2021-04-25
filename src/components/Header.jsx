@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-fragments */
 /* eslint-disable no-console */
 /* eslint-disable react/destructuring-assignment */
@@ -22,21 +23,17 @@ import {
   Dropdown, Button, Checkbox, NumberInput,
 } from 'carbon-components-react';
 import { useFilterRooms } from './RoomContext';
+import { fetchBuildings } from '../queries/RoomQueries';
 
-const HeaderBaseWActions = (props) => {
-  const { dispatch } = useFilterRooms();
-  const [items] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('buildings')) ?? [];
-    } catch {
-      console.log('The buildings could not be parse into JSON.');
-      return [];
-    }
-  });
+const HeaderBaseWActions = () => {
+  const { setSelectedBuildingOptions, setSelectedOccupancy } = useFilterRooms();
+  const buildings = fetchBuildings();
+  const [currentItem, setCurrentItem] = useState();
+  const [currentOccupancy, setCurrentOccupancy] = useState(50);
 
-  const [currentItem, setCurrentItem] = useState(items[0]);
-
-  return (
+  return buildings.isLoading ? (
+    'Loading...'
+  ) : (
     <HeaderContainer
       render={() => (
         <>
@@ -71,12 +68,11 @@ const HeaderBaseWActions = (props) => {
                       id="default-dropdown"
                       titleText="Ēka"
                       label="Izvēlieties ēku"
-                      items={items}
+                      items={buildings.data}
                       itemToString={(item) => (item ? item.title : '')}
                       onChange={({ selectedItem }) => {
                         setCurrentItem(selectedItem);
-                        dispatch({ type: 'filterByBuilding', id: selectedItem.id });
-                        props.dispatch2({ type: 'filterByBuilding', id: selectedItem.id });
+                        setSelectedBuildingOptions([selectedItem.id]);
                       }}
                       selectedItem={currentItem}
                     />
@@ -90,10 +86,15 @@ const HeaderBaseWActions = (props) => {
                     id="numberInput"
                     min={0}
                     max={1000}
-                    value={50}
+                    value={currentOccupancy}
                     label="Ietilpība (studentu skaits)"
                     invalidText="Number is not valid"
-                    step={10}
+                    step={50}
+                    onChange={(evt) => {
+                      const newValue = evt.imaginaryTarget.valueAsNumber;
+                      setCurrentOccupancy(newValue);
+                      setSelectedOccupancy(newValue);
+                    }}
                   />
                 </div>
                 <div className="demo-app-sidebar-section">

@@ -17,6 +17,39 @@
       "title": "Ekonomikas un vadības fakultātes ēka"
     }
   ],
+  "faculties": [
+    {
+      "id": 1,
+      "shortname": "BF",
+      "fullname": "Bioloģijas fakultāte"
+    },
+    {
+      "id": 2,
+      "shortname": "ĢZZF",
+      "fullname": "Ģeogrāfijas un Zemes zinātņu fakultāte"
+    },
+    {
+      "id": 3,
+      "shortname": "ĶF",
+      "fullname": "Ķīmijas fakultāte"
+    },
+    {
+      "id": 4,
+      "shortname": "MF",
+      "fullname": "Medicīnas fakultāte",
+      "color": "#7030a0"
+    },
+    {
+      "id": 5,
+      "shortname": "PPMF",
+      "fullname": "Pedagoģijas, psiholoģijas un mākslas fakultāte"
+    },
+    {
+      "id": 6,
+      "shortname": "FMOF",
+      "fullname": "Fizikas, matemātikas un optiometrijas fakultāte"
+    }
+  ],
   "rooms": [
     {
       "buildingId": 0,

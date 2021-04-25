@@ -1,12 +1,12 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import FullCalendar from '@fullcalendar/react';
 import resourceTimeline from '@fullcalendar/resource-timeline';
-import React from 'react';
+import { fetchRooms, fetchReservations } from '../queries/RoomQueries';
 import { useFilterRooms } from './RoomContext';
 
-export default function Calendar(props) {
-  const { filteredRooms } = useFilterRooms();
+export default function Calendar() {
+  const { filteredRooms, filteredReservations } = useFilterRooms();
 
   return (
     <div className="demo-app-main">
@@ -35,15 +35,14 @@ export default function Calendar(props) {
           },
         ]}
         resources={filteredRooms}
+        events={filteredReservations}
         resourceAreaWidth="17%"
-        events={props.reservations}
         slotLabelFormat={{
           hour: '2-digit',
           minute: '2-digit',
           meridiem: false,
           hour12: false,
         }}
-        // filterResourcesWithEvents
         navLinks
       />
     </div>

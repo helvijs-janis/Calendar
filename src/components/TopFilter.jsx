@@ -2,19 +2,15 @@ import { useState, React } from 'react';
 import {
   Grid, Row, Column, Accordion, AccordionItem, Dropdown, TextInput,
 } from 'carbon-components-react';
-import useFetch from '../services/useFetch';
-import Spinner from '../Spinner';
+import { fetchFaculties } from '../queries/RoomQueries';
 
 const TopFilter = () => {
-  const { data: items, loading, error } = useFetch(
-    'rooms',
-  );
+  const items = fetchFaculties();
   const [currentItem, setCurrentItem] = useState();
 
-  if (error) throw error;
-  if (loading) return <Spinner />;
-
-  return (
+  return items.isLoading ? (
+    'Loading...'
+  ) : (
     <Accordion>
       <AccordionItem title="Pasākuma filtri">
         <Grid>
@@ -25,7 +21,7 @@ const TopFilter = () => {
                   id="default"
                   titleText="Studiju programma"
                   label="Ģeogrāfija"
-                  items={items}
+                  items={items.data}
                   itemToString={(item) => (item ? item.shortname : '')}
                   onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
                   selectedItem={currentItem}
@@ -38,7 +34,7 @@ const TopFilter = () => {
                   id="default"
                   titleText="Kurss"
                   label="1."
-                  items={items}
+                  items={items.data}
                   itemToString={(item) => (item ? item.shortname : '')}
                   onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
                 />

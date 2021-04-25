@@ -1,9 +1,18 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React, { useReducer, useEffect, useContext } from 'react';
-import RoomsReducer from './RoomsReducer';
+import React, { useState, useEffect, useContext } from 'react';
+import useFetch from '../services/useFetch';
 
 const RoomContext = React.createContext(null);
+
+let initialReservations;
+try {
+  initialReservations = JSON.parse(localStorage.getItem('reservations')) ?? [];
+} catch {
+  initialReservations = [];
+}
 
 let initialRooms;
 try {
@@ -12,12 +21,56 @@ try {
   initialRooms = [];
 }
 
+let initialBuildings;
+try {
+  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? [];
+} catch {
+  initialBuildings = [];
+}
+
 export function RoomProvider(props) {
-  const [filteredRooms, dispatch] = useReducer(RoomsReducer, initialRooms);
-  useEffect(() => localStorage.setItem('rooms', JSON.stringify(initialRooms)), [initialRooms]);
+  const { data: rooms } = useFetch(
+    'rooms',
+  );
+
+  const { data: reservations } = useFetch(
+    'reservations',
+  );
+
+  const { data: buildings } = useFetch(
+    'buildings',
+  );
+
+  useEffect(() => localStorage.setItem('rooms', JSON.stringify(rooms)), [rooms]);
+  useEffect(() => localStorage.setItem('reservations', JSON.stringify(reservations)), [reservations]);
+  useEffect(() => localStorage.setItem('buildings', JSON.stringify(buildings)), [buildings]);
+
+  const [filteredRooms, setFilteredRooms] = useState(initialRooms);
+  const [filteredReservations, setFilteredReservations] = useState(initialReservations);
+
+  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState([0, 1, 2, 3]);
+  const [selectedOccupancy, setSelectedOccupancy] = useState(50);
+
+  const filterByBuilding = (array) => {
+    return array.filter((item) => selectedBuildingOptions.includes(item.buildingId));
+  };
+
+  const filterByOccupancy = (array) => {
+    return array.filter((item) => item.occupancy >= selectedOccupancy);
+  };
+
+  useEffect(() => {
+    let result = initialRooms;
+    result = filterByBuilding(result);
+    result = filterByOccupancy(result);
+    setFilteredRooms(result);
+  }, [selectedBuildingOptions, selectedOccupancy]);
+
   const contextValue = {
     filteredRooms,
-    dispatch,
+    filteredReservations,
+    setSelectedBuildingOptions,
+    setSelectedOccupancy,
   };
 
   return (
