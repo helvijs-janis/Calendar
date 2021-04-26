@@ -19,7 +19,8 @@ export default function Calendar() {
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
         }}
-        now="2021-02-02"
+        now="2021-02-02T08:30:00"
+        nowIndicator
         weekends
         firstDay={1}
         slotMinTime="08:00:00"

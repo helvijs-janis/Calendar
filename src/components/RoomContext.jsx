@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect, useContext } from 'react';
 import useFetch from '../services/useFetch';
@@ -28,7 +28,7 @@ try {
   initialBuildings = [];
 }
 
-export function RoomProvider(props) {
+export function RoomsProvider(props) {
   const { data: rooms } = useFetch(
     'rooms',
   );
@@ -50,6 +50,7 @@ export function RoomProvider(props) {
 
   const [selectedBuildingOptions, setSelectedBuildingOptions] = useState([0, 1, 2, 3]);
   const [selectedOccupancy, setSelectedOccupancy] = useState(50);
+  const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
 
   const filterByBuilding = (array) => {
     return array.filter((item) => selectedBuildingOptions.includes(item.buildingId));
@@ -59,18 +60,28 @@ export function RoomProvider(props) {
     return array.filter((item) => item.occupancy >= selectedOccupancy);
   };
 
+  const filterByLargeBlackboard = (array) => {
+    if (hideRoomsWithoutLargeBlackboard) {
+      return array.filter((item) => item.inventory.includes('XL tafele'));
+    }
+
+    return array;
+  };
+
   useEffect(() => {
     let result = initialRooms;
     result = filterByBuilding(result);
     result = filterByOccupancy(result);
+    result = filterByLargeBlackboard(result);
     setFilteredRooms(result);
-  }, [selectedBuildingOptions, selectedOccupancy]);
+  }, [selectedBuildingOptions, selectedOccupancy, hideRoomsWithoutLargeBlackboard]);
 
   const contextValue = {
     filteredRooms,
     filteredReservations,
     setSelectedBuildingOptions,
     setSelectedOccupancy,
+    setHideRoomsWithoutLargeBlackboard,
   };
 
   return (

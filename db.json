@@ -56,56 +56,72 @@
       "id": 0,
       "title": "106.",
       "occupancy": "50",
-      "inventoryNo": "106."
+      "inventoryNo": "106.",
+      "inventory": ["Datori", "XL tafele", "Krita tafele", "Projektors"]
     },
     {
       "buildingId": 1,
       "id": 1,
       "title": "107.",
       "occupancy": "100",
-      "inventoryNo": "107."
+      "inventoryNo": "107.",
+      "inventory": ["Datori"]
     },
     {
       "buildingId": 2,
       "id": 2,
       "title": "108.",
       "occupancy": "150",
-      "inventoryNo": "108."
+      "inventoryNo": "108.",
+      "inventory": ["Datori"]
     },
     {
       "buildingId": 3,
       "id": 3,
       "title": "109.",
       "occupancy": "200",
-      "inventoryNo": "109."
+      "inventoryNo": "109.",
+      "inventory": ["XL tafele"]
     },
     {
       "buildingId": 0,
       "id": 4,
       "title": "110.",
       "occupancy": "50",
-      "inventoryNo": "106."
+      "inventoryNo": "106.",
+      "inventory": ["XL tafele"]
     },
     {
       "buildingId": 1,
       "id": 5,
       "title": "111.",
       "occupancy": "100",
-      "inventoryNo": "107."
+      "inventoryNo": "107.",
+      "inventory": ["Krita tafele"]
     },
     {
       "buildingId": 2,
       "id": 6,
       "title": "112.",
       "occupancy": "150",
-      "inventoryNo": "108."
+      "inventoryNo": "108.",
+      "inventory": ["Krita tafele"]
     },
     {
       "buildingId": 3,
       "id": 7,
       "title": "113.",
       "occupancy": "200",
-      "inventoryNo": "109."
+      "inventoryNo": "109.",
+      "inventory": ["Projektors"]
+    },
+    {
+      "buildingId": 3,
+      "id": 8,
+      "title": "114.",
+      "occupancy": "250",
+      "inventoryNo": "109.",
+      "inventory": ["Projektors"]
     }
   ],
   "reservations": [
@@ -264,6 +280,16 @@
       "start": "2021-02-02T10:30:00",
       "end": "2021-02-02T12:00:00",
       "id": 15,
+      "faculty": "",
+      "type": "lekcija",
+      "title": "Matemātiskā analīze",
+      "responsiblePerson": "Kondratovičš"
+    },
+    {
+      "resourceId": "8",
+      "start": "2021-02-02T12:30:00",
+      "end": "2021-02-02T14:00:00",
+      "id": 16,
       "faculty": "",
       "type": "lekcija",
       "title": "Matemātiskā analīze",
