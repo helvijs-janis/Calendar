@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-fragments */
-/* eslint-disable no-console */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 import {
   Calendar32, Group32, UserAvatar32, Settings32, Add16,
 } from '@carbon/icons-react';
@@ -26,10 +21,16 @@ import { useFilterRooms } from './RoomContext';
 import { fetchBuildings } from '../queries/RoomQueries';
 
 const HeaderBaseWActions = () => {
-  const { setSelectedBuildingOptions, setSelectedOccupancy } = useFilterRooms();
+  const {
+    setSelectedBuildingOptions,
+    setSelectedOccupancy,
+    setHideRoomsWithoutLargeBlackboard,
+  } = useFilterRooms();
+
   const buildings = fetchBuildings();
   const [currentItem, setCurrentItem] = useState();
   const [currentOccupancy, setCurrentOccupancy] = useState(50);
+  const [isChecked, setIsChecked] = useState(false);
 
   return buildings.isLoading ? (
     'Loading...'
@@ -99,7 +100,15 @@ const HeaderBaseWActions = () => {
                 </div>
                 <div className="demo-app-sidebar-section">
                   <legend>Telpas parametri</legend>
-                  <Checkbox labelText="XL tāfele" id="checkbox-label-2" />
+                  <Checkbox
+                    labelText="XL tāfele"
+                    id="checkbox-label-2"
+                    checked={isChecked}
+                    onChange={() => {
+                      setIsChecked(!isChecked);
+                      setHideRoomsWithoutLargeBlackboard(!isChecked);
+                    }}
+                  />
                   <Checkbox labelText="Krīta tāfele" id="checkbox-label-3" />
                   <Checkbox labelText="Datori" id="checkbox-label-4" />
                   <Checkbox labelText="Projektors" id="checkbox-label-5" />
