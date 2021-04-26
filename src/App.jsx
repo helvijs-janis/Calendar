@@ -5,14 +5,14 @@ import { Grid, Row, Column } from 'carbon-components-react';
 import EventCalendar from './components/EventCalendar';
 import HeaderBaseWActions from './components/Header';
 import TopFilter from './components/TopFilter';
-import { RoomProvider } from './components/RoomContext';
+import { RoomsProvider } from './components/RoomContext';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RoomProvider>
+      <RoomsProvider>
         <HeaderBaseWActions />
         <Grid fullWidth>
           <Row>
@@ -23,7 +23,7 @@ export default function App() {
             </Column>
           </Row>
         </Grid>
-      </RoomProvider>
+      </RoomsProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
