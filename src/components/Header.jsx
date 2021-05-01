@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import {
   Calendar32, Group32, UserAvatar32, Settings32, Add16,
 } from '@carbon/icons-react';
-import {
-  useState, React,
-} from 'react';
+import { useState, useEffect, React } from 'react';
+import { useQuery } from 'react-query';
 import {
   Header,
   HeaderName,
@@ -20,19 +20,40 @@ import {
 import { useFilterRooms } from './RoomContext';
 import { fetchBuildings } from '../queries/RoomQueries';
 
+let initialBuildings;
+try {
+  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? [];
+} catch {
+  initialBuildings = [];
+}
+
+const options = initialBuildings;
+options.splice(0, 0, {
+  id: 4,
+  title: 'Visas ēkas',
+});
+
 const HeaderBaseWActions = () => {
   const {
-    setSelectedBuildingOptions,
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
+    setHideRoomsWithoutChalkBlackboard,
+    setHideRoomsWithoutComputers,
+    setHideRoomsWithoutProjector,
   } = useFilterRooms();
 
-  const buildings = fetchBuildings();
-  const [currentItem, setCurrentItem] = useState();
-  const [currentOccupancy, setCurrentOccupancy] = useState(50);
-  const [isChecked, setIsChecked] = useState(false);
+  const { setSelectedBuildingOptions } = useFilterRooms();
+  const items = fetchBuildings();
+  const [currentItem, setCurrentItem] = useState(options[0]);
 
-  return buildings.isLoading ? (
+  const [currentOccupancy, setCurrentOccupancy] = useState(50);
+  const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(false);
+  const [isCheckedChalkBlackboard, setIsCheckedChalkBlackboard] = useState(false);
+  const [isCheckedComputers, setIsCheckedComputers] = useState(false);
+  const [isCheckedProjector, setIsCheckedProjector] = useState(false);
+
+  // return (
+  return items.isLoading ? (
     'Loading...'
   ) : (
     <HeaderContainer
@@ -66,14 +87,14 @@ const HeaderBaseWActions = () => {
                 <div className="demo-app-sidebar-section">
                   <div style={{ width: 200 }}>
                     <Dropdown
-                      id="default-dropdown"
+                      id="default"
                       titleText="Ēka"
                       label="Izvēlieties ēku"
-                      items={buildings.data}
+                      items={options}
                       itemToString={(item) => (item ? item.title : '')}
                       onChange={({ selectedItem }) => {
                         setCurrentItem(selectedItem);
-                        setSelectedBuildingOptions([selectedItem.id]);
+                        setSelectedBuildingOptions(selectedItem.id);
                       }}
                       selectedItem={currentItem}
                     />
@@ -103,15 +124,39 @@ const HeaderBaseWActions = () => {
                   <Checkbox
                     labelText="XL tāfele"
                     id="checkbox-label-2"
-                    checked={isChecked}
+                    checked={isCheckedLargeBlackboard}
                     onChange={() => {
-                      setIsChecked(!isChecked);
-                      setHideRoomsWithoutLargeBlackboard(!isChecked);
+                      setIsCheckedLargeBlackboard(!isCheckedLargeBlackboard);
+                      setHideRoomsWithoutLargeBlackboard(!isCheckedLargeBlackboard);
                     }}
                   />
-                  <Checkbox labelText="Krīta tāfele" id="checkbox-label-3" />
-                  <Checkbox labelText="Datori" id="checkbox-label-4" />
-                  <Checkbox labelText="Projektors" id="checkbox-label-5" />
+                  <Checkbox
+                    labelText="Krīta tāfele"
+                    id="checkbox-label-3"
+                    checked={isCheckedChalkBlackboard}
+                    onChange={() => {
+                      setIsCheckedChalkBlackboard(!isCheckedChalkBlackboard);
+                      setHideRoomsWithoutChalkBlackboard(!isCheckedChalkBlackboard);
+                    }}
+                  />
+                  <Checkbox
+                    labelText="Datori"
+                    id="checkbox-label-4"
+                    checked={isCheckedComputers}
+                    onChange={() => {
+                      setIsCheckedComputers(!isCheckedComputers);
+                      setHideRoomsWithoutComputers(!isCheckedComputers);
+                    }}
+                  />
+                  <Checkbox
+                    labelText="Projektors"
+                    id="checkbox-label-5"
+                    checked={isCheckedProjector}
+                    onChange={() => {
+                      setIsCheckedProjector(!isCheckedProjector);
+                      setHideRoomsWithoutProjector(!isCheckedProjector);
+                    }}
+                  />
                 </div>
               </SideNavItems>
             </SideNav>

@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import FullCalendar from '@fullcalendar/react';
 import resourceTimeline from '@fullcalendar/resource-timeline';
-import { fetchRooms, fetchReservations } from '../queries/RoomQueries';
 import { useFilterRooms } from './RoomContext';
+import { useReservationContext } from './ReservationContext';
 
 export default function Calendar() {
-  const { filteredRooms, filteredReservations } = useFilterRooms();
+  const { filteredRooms } = useFilterRooms();
+  const { filteredReservations } = useReservationContext();
 
   return (
     <div className="demo-app-main">
@@ -20,7 +20,6 @@ export default function Calendar() {
           right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
         }}
         now="2021-02-02T08:30:00"
-        nowIndicator
         weekends
         firstDay={1}
         slotMinTime="08:00:00"

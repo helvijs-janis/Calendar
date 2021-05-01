@@ -7,13 +7,6 @@ import useFetch from '../services/useFetch';
 
 const RoomContext = React.createContext(null);
 
-let initialReservations;
-try {
-  initialReservations = JSON.parse(localStorage.getItem('reservations')) ?? [];
-} catch {
-  initialReservations = [];
-}
-
 let initialRooms;
 try {
   initialRooms = JSON.parse(localStorage.getItem('rooms')) ?? [];
@@ -21,20 +14,9 @@ try {
   initialRooms = [];
 }
 
-let initialBuildings;
-try {
-  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? [];
-} catch {
-  initialBuildings = [];
-}
-
 export function RoomsProvider(props) {
   const { data: rooms } = useFetch(
     'rooms',
-  );
-
-  const { data: reservations } = useFetch(
-    'reservations',
   );
 
   const { data: buildings } = useFetch(
@@ -42,18 +24,23 @@ export function RoomsProvider(props) {
   );
 
   useEffect(() => localStorage.setItem('rooms', JSON.stringify(rooms)), [rooms]);
-  useEffect(() => localStorage.setItem('reservations', JSON.stringify(reservations)), [reservations]);
   useEffect(() => localStorage.setItem('buildings', JSON.stringify(buildings)), [buildings]);
 
   const [filteredRooms, setFilteredRooms] = useState(initialRooms);
-  const [filteredReservations, setFilteredReservations] = useState(initialReservations);
 
-  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState([0, 1, 2, 3]);
+  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4);
   const [selectedOccupancy, setSelectedOccupancy] = useState(50);
   const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
+  const [hideRoomsWithoutChalkBlackboard, setHideRoomsWithoutChalkBlackboard] = useState(false);
+  const [hideRoomsWithoutComputers, setHideRoomsWithoutComputers] = useState(false);
+  const [hideRoomsWithoutProjector, setHideRoomsWithoutProjector] = useState(false);
 
   const filterByBuilding = (array) => {
-    return array.filter((item) => selectedBuildingOptions.includes(item.buildingId));
+    if (selectedBuildingOptions === 4) {
+      return array;
+    }
+
+    return array.filter((item) => item.buildingId === selectedBuildingOptions);
   };
 
   const filterByOccupancy = (array) => {
@@ -68,20 +55,54 @@ export function RoomsProvider(props) {
     return array;
   };
 
+  const filterByChalkBlackboard = (array) => {
+    if (hideRoomsWithoutChalkBlackboard) {
+      return array.filter((item) => item.inventory.includes('Krita tafele'));
+    }
+
+    return array;
+  };
+
+  const filterByComputers = (array) => {
+    if (hideRoomsWithoutComputers) {
+      return array.filter((item) => item.inventory.includes('Datori'));
+    }
+
+    return array;
+  };
+
+  const filterByProjector = (array) => {
+    if (hideRoomsWithoutProjector) {
+      return array.filter((item) => item.inventory.includes('Projektors'));
+    }
+
+    return array;
+  };
+
   useEffect(() => {
     let result = initialRooms;
     result = filterByBuilding(result);
     result = filterByOccupancy(result);
     result = filterByLargeBlackboard(result);
+    result = filterByChalkBlackboard(result);
+    result = filterByComputers(result);
+    result = filterByProjector(result);
     setFilteredRooms(result);
-  }, [selectedBuildingOptions, selectedOccupancy, hideRoomsWithoutLargeBlackboard]);
+  }, [selectedBuildingOptions,
+    selectedOccupancy,
+    hideRoomsWithoutLargeBlackboard,
+    hideRoomsWithoutChalkBlackboard,
+    hideRoomsWithoutComputers,
+    hideRoomsWithoutProjector]);
 
   const contextValue = {
     filteredRooms,
-    filteredReservations,
     setSelectedBuildingOptions,
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
+    setHideRoomsWithoutChalkBlackboard,
+    setHideRoomsWithoutComputers,
+    setHideRoomsWithoutProjector,
   };
 
   return (
@@ -93,8 +114,5 @@ export function RoomsProvider(props) {
 
 export function useFilterRooms() {
   const context = useContext(RoomContext);
-  if (!context) {
-    throw new Error('useFilterRooms must be used within a RoomProvider');
-  }
   return context;
 }
