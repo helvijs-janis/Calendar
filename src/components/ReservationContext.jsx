@@ -28,6 +28,7 @@ export function ReservationsProvider(props) {
   const [filteredReservations, setFilteredReservations] = useState(initialReservations);
 
   const [selectedFaculty, setSelectedFaculty] = useState(0);
+  const [selectedSubject, setSelectedSubject] = useState('');
 
   const filterByFaculty = (array) => {
     if (selectedFaculty === 0) {
@@ -37,15 +38,21 @@ export function ReservationsProvider(props) {
     return array.filter((item) => item.facultyId === selectedFaculty);
   };
 
+  const filterBySubject = (array) => {
+    return array.filter((item) => item.title.toLowerCase().includes(selectedSubject.toLowerCase()));
+  };
+
   useEffect(() => {
     let result = initialReservations;
     result = filterByFaculty(result);
+    result = filterBySubject(result);
     setFilteredReservations(result);
-  }, [selectedFaculty]);
+  }, [selectedFaculty, selectedSubject]);
 
   const contextValue = {
     filteredReservations,
     setSelectedFaculty,
+    setSelectedSubject,
   };
 
   return (

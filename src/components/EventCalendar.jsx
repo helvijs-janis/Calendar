@@ -5,7 +5,7 @@ import { useFilterRooms } from './RoomContext';
 import { useReservationContext } from './ReservationContext';
 
 export default function Calendar() {
-  const { filteredRooms } = useFilterRooms();
+  const { filteredRooms } = useFilterRooms(); // room context
   const { filteredReservations } = useReservationContext();
 
   return (

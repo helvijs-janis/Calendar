@@ -17,14 +17,14 @@ options.splice(0, 0, {
   id: 0,
   fullname: 'Visas fakultātes',
 });
-console.log(options);
 
 const TopFilter = () => {
-  const { setSelectedFaculty } = useReservationContext();
-  const items = fetchFaculties();
-  const [currentItem, setCurrentItem] = useState(options[0]);
+  const { setSelectedFaculty, setSelectedSubject } = useReservationContext();
+  const faculties = fetchFaculties();
+  const [currentFaculty, setCurrentFaculty] = useState(options[0]);
+  const [currentSubject, setCurrentSubject] = useState('');
 
-  return items.isLoading ? (
+  return faculties.isLoading ? (
     'Loading...'
   ) : (
     <Accordion>
@@ -41,10 +41,10 @@ const TopFilter = () => {
                   items={options}
                   itemToString={(item) => (item ? item.fullname : '')}
                   onChange={({ selectedItem }) => {
-                    setCurrentItem(selectedItem);
+                    setCurrentFaculty(selectedItem);
                     setSelectedFaculty(selectedItem.id);
                   }}
-                  selectedItem={currentItem}
+                  selectedItem={currentFaculty}
                 />
               </div>
             </Column>
@@ -55,9 +55,9 @@ const TopFilter = () => {
                   titleText="Kurss"
                   label="1."
                   light
-                  items={items.data}
+                  items={faculties.data}
                   itemToString={(item) => (item ? item.shortname : '')}
-                  onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
+                  onChange={({ selectedItem }) => setCurrentFaculty(selectedItem)}
                 />
               </div>
             </Column>
@@ -67,6 +67,11 @@ const TopFilter = () => {
                   id="text-input-1"
                   labelText="Priekšmets"
                   placeholder="Praktiskā ekoloģija"
+                  value={currentSubject}
+                  onChange={(event) => {
+                    setCurrentSubject(event.target.value);
+                    setSelectedSubject(event.target.value);
+                  }}
                 />
               </div>
             </Column>

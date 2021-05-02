@@ -44,6 +44,9 @@ export function RoomsProvider(props) {
   };
 
   const filterByOccupancy = (array) => {
+    if (Number.isNaN(selectedOccupancy)) {
+      return array;
+    }
     return array.filter((item) => item.occupancy >= selectedOccupancy);
   };
 

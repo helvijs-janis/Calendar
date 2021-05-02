@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Grid, Row, Column } from 'carbon-components-react';
 import EventCalendar from './components/EventCalendar';
 import HeaderBaseWActions from './components/Header';
+import Sidebar from './components/Sidebar';
 import TopFilter from './components/TopFilter';
 import { RoomsProvider } from './components/RoomContext';
 import { ReservationsProvider } from './components/ReservationContext';
@@ -16,6 +17,7 @@ export default function App() {
       <RoomsProvider>
         <ReservationsProvider>
           <HeaderBaseWActions />
+          <Sidebar />
           <Grid fullWidth>
             <Row>
               <Column lg={2} />

@@ -133,7 +133,8 @@
       "facultyId": 1,
       "type": "lekcija",
       "title": "Matemātika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
     },
     {
       "resourceId": "0",
@@ -143,7 +144,8 @@
       "facultyId": 1,
       "type": "lekcija",
       "title": "Ģeogrāfija",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 2
     },
     {
       "resourceId": "1",
@@ -153,7 +155,8 @@
       "facultyId": 2,
       "type": "lekcija",
       "title": "Ķīmija",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 3
     },
     {
       "resourceId": "1",
@@ -163,7 +166,8 @@
       "facultyId": 2,
       "type": "lekcija",
       "title": "Fizika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 4
     },
     {
       "resourceId": "2",
@@ -173,7 +177,8 @@
       "facultyId": 3,
       "type": "lekcija",
       "title": "Ētika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 5
     },
     {
       "resourceId": "2",
@@ -183,7 +188,8 @@
       "facultyId": 3,
       "type": "lekcija",
       "title": "Programmatūras izstrāde",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
     },
     {
       "resourceId": "3",
@@ -193,7 +199,8 @@
       "facultyId": 4,
       "type": "lekcija",
       "title": "Algebra",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
     },
     {
       "resourceId": "3",
@@ -203,7 +210,8 @@
       "facultyId": 4,
       "type": "lekcija",
       "title": "Matemātiskā analīze",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 2
     },
     {
       "resourceId": "4",
@@ -213,7 +221,8 @@
       "facultyId": 5,
       "type": "lekcija",
       "title": "Matemātika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 3
     },
     {
       "resourceId": "4",
@@ -223,7 +232,8 @@
       "facultyId": 5,
       "type": "lekcija",
       "title": "Ģeogrāfija",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 4
     },
     {
       "resourceId": "5",
@@ -233,7 +243,8 @@
       "facultyId": 6,
       "type": "lekcija",
       "title": "Ķīmija",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 5
     },
     {
       "resourceId": "5",
@@ -243,7 +254,8 @@
       "facultyId": 6,
       "type": "lekcija",
       "title": "Fizika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
     },
     {
       "resourceId": "6",
@@ -253,7 +265,8 @@
       "facultyId": 1,
       "type": "lekcija",
       "title": "Ētika",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 2
     },
     {
       "resourceId": "6",
@@ -263,7 +276,8 @@
       "facultyId": 2,
       "type": "lekcija",
       "title": "Programmatūras izstrāde",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 3
     },
     {
       "resourceId": "7",
@@ -273,7 +287,8 @@
       "facultyId": 3,
       "type": "lekcija",
       "title": "Algebra",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 4
     },
     {
       "resourceId": "7",
@@ -283,7 +298,8 @@
       "facultyId": 4,
       "type": "lekcija",
       "title": "Matemātiskā analīze",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 5
     },
     {
       "resourceId": "8",
@@ -293,7 +309,8 @@
       "facultyId": 5,
       "type": "lekcija",
       "title": "Matemātiskā analīze",
-      "responsiblePerson": "Kondratovičš"
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
     }
   ]
 }
