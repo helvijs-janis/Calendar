@@ -18,10 +18,14 @@ options.splice(0, 0, {
   fullname: 'Visas fakultātes',
 });
 
+const courses = ['Visi', '1', '2', '3', '4', '5'];
+
 const TopFilter = () => {
-  const { setSelectedFaculty, setSelectedSubject } = useReservationContext();
+  const { setSelectedFaculty, setSelectedCourse, setSelectedSubject } = useReservationContext();
   const faculties = fetchFaculties();
+
   const [currentFaculty, setCurrentFaculty] = useState(options[0]);
+  const [currentCourse, setCurrentCourse] = useState(courses[0]);
   const [currentSubject, setCurrentSubject] = useState('');
 
   return faculties.isLoading ? (
@@ -55,9 +59,12 @@ const TopFilter = () => {
                   titleText="Kurss"
                   label="1."
                   light
-                  items={faculties.data}
-                  itemToString={(item) => (item ? item.shortname : '')}
-                  onChange={({ selectedItem }) => setCurrentFaculty(selectedItem)}
+                  items={courses}
+                  onChange={({ selectedItem }) => {
+                    setCurrentCourse(selectedItem);
+                    setSelectedCourse(selectedItem);
+                  }}
+                  selectedItem={currentCourse}
                 />
               </div>
             </Column>

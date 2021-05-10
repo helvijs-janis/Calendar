@@ -126,10 +126,10 @@
   ],
   "reservations": [
     {
-      "resourceId": "0",
-      "start": "2021-02-02T08:30:00",
-      "end": "2021-02-02T10:00:00",
       "id": 0,
+      "resourceId": 0,
+      "start": "2021-02-02T08:30:00",
+      "end": "2021-02-02T10:00",
       "facultyId": 1,
       "type": "lekcija",
       "title": "Matemātika",
@@ -138,8 +138,8 @@
     },
     {
       "resourceId": "0",
-      "start": "2021-02-02T10:30:00",
-      "end": "2021-02-02T12:00:00",
+      "start": "2021-02-02T10:30",
+      "end": "2021-02-02T12:00",
       "id": 1,
       "facultyId": 1,
       "type": "lekcija",
@@ -303,12 +303,67 @@
     },
     {
       "resourceId": "8",
-      "start": "2021-02-02T12:30:00",
-      "end": "2021-02-02T14:00:00",
+      "start": "2021-02-03T12:30:00",
+      "end": "2021-02-03T14:00:00",
       "id": 16,
       "facultyId": 5,
       "type": "lekcija",
       "title": "Matemātiskā analīze",
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
+    },
+    {
+      "id": 17,
+      "resourceId": 0,
+      "start": "2021-02-01T08:30:00",
+      "end": "2021-02-01T10:00",
+      "facultyId": 1,
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
+    },
+    {
+      "id": 18,
+      "resourceId": 0,
+      "start": "2021-01-31T08:30:00",
+      "end": "2021-01-31T10:00",
+      "facultyId": 1,
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
+    },
+    {
+      "id": 19,
+      "resourceId": 0,
+      "start": "2021-02-03T08:30:00",
+      "end": "2021-02-03T10:00",
+      "facultyId": 1,
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
+    },
+    {
+      "id": 20,
+      "resourceId": 0,
+      "start": "2021-02-04T08:30:00",
+      "end": "2021-02-04T10:00",
+      "facultyId": 1,
+      "type": "lekcija",
+      "title": "Matemātika",
+      "responsiblePerson": "Kondratovičš",
+      "kurss": 1
+    },
+    {
+      "id": 21,
+      "resourceId": 0,
+      "start": "2021-02-05T08:30:00",
+      "end": "2021-02-05T10:00",
+      "facultyId": 1,
+      "type": "lekcija",
+      "title": "Matemātika",
       "responsiblePerson": "Kondratovičš",
       "kurss": 1
     }

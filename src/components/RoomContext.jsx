@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import useFetch from '../services/useFetch';
+import { useReservationContext } from './ReservationContext';
 
 const RoomContext = React.createContext(null);
 
@@ -14,7 +13,7 @@ try {
   initialRooms = [];
 }
 
-export function RoomsProvider(props) {
+export function RoomsProvider({ children }) {
   const { data: rooms } = useFetch(
     'rooms',
   );
@@ -26,9 +25,11 @@ export function RoomsProvider(props) {
   useEffect(() => localStorage.setItem('rooms', JSON.stringify(rooms)), [rooms]);
   useEffect(() => localStorage.setItem('buildings', JSON.stringify(buildings)), [buildings]);
 
+  const { initialReservations } = useReservationContext();
   const [filteredRooms, setFilteredRooms] = useState(initialRooms);
 
   const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4);
+  const [hideUnavailableRooms, setHideUnavailableRooms] = useState(false);
   const [selectedOccupancy, setSelectedOccupancy] = useState(50);
   const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
   const [hideRoomsWithoutChalkBlackboard, setHideRoomsWithoutChalkBlackboard] = useState(false);
@@ -41,6 +42,20 @@ export function RoomsProvider(props) {
     }
 
     return array.filter((item) => item.buildingId === selectedBuildingOptions);
+  };
+
+  const filterByAvailability = (array, reservations) => {
+    const start1 = '2021-02-02T08:30:00';
+    const end1 = '2021-02-02T10:30:00';
+    const roomIds = [];
+    reservations.forEach((element) => {
+      if ((element.start <= end1) && (element.end >= start1)) {
+        roomIds.push(element.resourceId);
+      }
+    });
+    console.log(roomIds);
+
+    return array;
   };
 
   const filterByOccupancy = (array) => {
@@ -84,7 +99,9 @@ export function RoomsProvider(props) {
 
   useEffect(() => {
     let result = initialRooms;
+    const test = initialReservations;
     result = filterByBuilding(result);
+    result = filterByAvailability(result, test);
     result = filterByOccupancy(result);
     result = filterByLargeBlackboard(result);
     result = filterByChalkBlackboard(result);
@@ -92,6 +109,8 @@ export function RoomsProvider(props) {
     result = filterByProjector(result);
     setFilteredRooms(result);
   }, [selectedBuildingOptions,
+    initialReservations,
+    hideUnavailableRooms,
     selectedOccupancy,
     hideRoomsWithoutLargeBlackboard,
     hideRoomsWithoutChalkBlackboard,
@@ -101,6 +120,7 @@ export function RoomsProvider(props) {
   const contextValue = {
     filteredRooms,
     setSelectedBuildingOptions,
+    setHideUnavailableRooms,
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
     setHideRoomsWithoutChalkBlackboard,
@@ -110,12 +130,19 @@ export function RoomsProvider(props) {
 
   return (
     <RoomContext.Provider value={contextValue}>
-      {props.children}
+      {children}
     </RoomContext.Provider>
   );
 }
 
-export function useFilterRooms() {
+export function useRoomsContext() {
   const context = useContext(RoomContext);
+  if (!context) {
+    throw new Error('useRoomsContext must be used within a ReservationProvider');
+  }
   return context;
 }
+
+RoomsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

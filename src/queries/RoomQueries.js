@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { useQuery, queryCache } from 'react-query';
 
+export function fetchReservations() {
+  return useQuery('reservations', async () => axios
+    .get('http://localhost:3000/reservations?start=2021-02-02T08:30:00')
+    .then((res) => res.data));
+}
+
 export function fetchBuildings() {
   return useQuery('buildings', async () => axios
     .get('http://localhost:3000/buildings')
@@ -16,12 +22,6 @@ export function fetchFaculties() {
 export function fetchRooms() {
   return useQuery('rooms', async () => axios
     .get('http://localhost:3000/rooms')
-    .then((res) => res.data));
-}
-
-export function fetchReservations() {
-  return useQuery('reservations', async () => axios
-    .get('http://localhost:3000/reservations')
     .then((res) => res.data));
 }
 

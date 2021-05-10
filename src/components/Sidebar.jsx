@@ -7,7 +7,7 @@ import {
 import {
   Dropdown, Button, Checkbox, NumberInput,
 } from 'carbon-components-react';
-import { useFilterRooms } from './RoomContext';
+import { useRoomsContext } from './RoomContext';
 import { fetchBuildings } from '../queries/RoomQueries';
 
 let initialBuildings;
@@ -25,18 +25,21 @@ options.splice(0, 0, {
 
 const Sidebar = () => {
   const {
+    setSelectedBuildingOptions,
+    setHideUnavailableRooms,
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
     setHideRoomsWithoutChalkBlackboard,
     setHideRoomsWithoutComputers,
     setHideRoomsWithoutProjector,
-  } = useFilterRooms();
+  } = useRoomsContext();
 
-  const { setSelectedBuildingOptions } = useFilterRooms();
   const items = fetchBuildings();
-  const [currentItem, setCurrentItem] = useState(options[0]);
 
+  const [currentItem, setCurrentItem] = useState(options[0]);
+  const [isCheckedHideUnavailableRooms, setIsCheckedHideUnavailableRooms] = useState(false);
   const [currentOccupancy, setCurrentOccupancy] = useState(50);
+
   const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(false);
   const [isCheckedChalkBlackboard, setIsCheckedChalkBlackboard] = useState(false);
   const [isCheckedComputers, setIsCheckedComputers] = useState(false);
@@ -70,7 +73,15 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="demo-app-sidebar-section">
-          <Checkbox labelText="Nerādīt telpas, kas ir aizņemtas tuvāko 2 stundu laikā" id="checkbox-label-1" />
+          <Checkbox
+            labelText="Nerādīt telpas, kas ir aizņemtas tuvāko 2 stundu laikā"
+            id="checkbox-label-1"
+            checked={isCheckedHideUnavailableRooms}
+            onChange={() => {
+              setIsCheckedHideUnavailableRooms(!isCheckedHideUnavailableRooms);
+              setHideUnavailableRooms(!isCheckedHideUnavailableRooms);
+            }}
+          />
         </div>
         <div className="demo-app-sidebar-section">
           <NumberInput
