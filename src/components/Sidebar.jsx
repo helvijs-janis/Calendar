@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Add16 } from '@carbon/icons-react';
 import {
   SideNav,
@@ -45,13 +46,23 @@ const Sidebar = () => {
   const [isCheckedComputers, setIsCheckedComputers] = useState(false);
   const [isCheckedProjector, setIsCheckedProjector] = useState(false);
 
+  const history = useHistory();
+  const navigateToCreate = useCallback(() => history.push('/create'), [history]);
+
   return items.isLoading ? (
     'Loading...'
   ) : (
     <SideNav aria-label="Side navigation">
       <SideNavItems>
         <div className="demo-app-sidebar-section">
-          <Button className="izveidot-button" renderIcon={Add16} iconDescription="Add">Izveidot</Button>
+          <Button
+            className="izveidot-button"
+            renderIcon={Add16}
+            iconDescription="Add"
+            onClick={navigateToCreate}
+          >
+            Izveidot
+          </Button>
         </div>
         <div className="demo-app-sidebar-section">
           <h4 style={{ fontWeight: 'bold' }}>Telpu filtri</h4>

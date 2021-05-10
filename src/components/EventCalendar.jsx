@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import resourceTimeline from '@fullcalendar/resource-timeline';
 import { format } from 'date-fns';
@@ -11,6 +12,9 @@ export default function Calendar() {
   const { filteredReservations, setSelectedDate } = useReservationContext();
   const calendarRef = React.useRef();
 
+  const history = useHistory();
+  const navigateToList = useCallback(() => history.push('/list'), [history]);
+
   return (
     <div className="demo-app-main">
       <FullCalendar
@@ -21,7 +25,7 @@ export default function Calendar() {
         headerToolbar={{
           left: 'previous,next',
           center: 'title',
-          right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
+          right: 'list,resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
         }}
         customButtons={{
           previous: {
@@ -40,6 +44,12 @@ export default function Calendar() {
               calendarApi.next();
               const date = format(calendarApi.getDate(), "yyyy-MM-dd'T08:30:00'");
               setSelectedDate(date);
+            },
+          },
+          list: {
+            text: 'list',
+            click() {
+              navigateToList();
             },
           },
         }}
