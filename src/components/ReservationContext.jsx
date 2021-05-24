@@ -1,20 +1,22 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect, useContext } from 'react';
-import { useQuery, QueryCache } from 'react-query';
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import useFetch from '../services/useFetch';
-import { fetchReservations } from '../queries/RoomQueries';
 
 const ReservationContext = React.createContext(null);
 
 const getReservations = async (key) => {
   const selectedDate = key.queryKey[1].start;
   const result = axios.get(`http://localhost:3000/reservations?start=${selectedDate}`).then((res) => res.data);
+  return result;
+};
+
+const getFaculties = async () => {
+  const result = axios.get('http://localhost:3000/faculties}').then((res) => res.data);
   return result;
 };
 
@@ -26,9 +28,11 @@ export function ReservationsProvider(props) {
   useEffect(() => localStorage.setItem('faculties', JSON.stringify(faculties)), [faculties]);
 
   const [selectedDate, setSelectedDate] = useState('2021-02-02T08:30:00');
-
   const reservationsQuery = useQuery(['reservations', { start: selectedDate }], getReservations);
+  const facultiesQuery = useQuery('faculties', getFaculties);
+
   const [initialReservations, setInitialReservations] = useState([]);
+  const [initialFaculties, setInitialFaculties] = useState([]);
   const [filteredReservations, setFilteredReservations] = useState();
 
   useEffect(() => {
@@ -36,6 +40,12 @@ export function ReservationsProvider(props) {
       setInitialReservations(reservationsQuery.data);
     }
   }, [reservationsQuery]);
+
+  useEffect(() => {
+    if (facultiesQuery.data) {
+      setInitialFaculties(facultiesQuery.data);
+    }
+  }, [facultiesQuery]);
 
   const [selectedFaculty, setSelectedFaculty] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState('Visi');
@@ -76,6 +86,7 @@ export function ReservationsProvider(props) {
     setSelectedSubject,
     setSelectedDate,
     initialReservations,
+    initialFaculties,
   };
 
   return (
@@ -93,26 +104,6 @@ export function useReservationContext() {
   return context;
 }
 
-export async function getServerSideProps() {
-  const reservationsQuery = await useQuery('reservations', async () => axios
-    .get('http://localhost:3000/reservations')
-    .then((res) => res.data));
-
-  const facultiesQuery = await useQuery('faculties', async () => axios
-    .get('http://localhost:3000/faculties')
-    .then((res) => res.data));
-
-  const res = await fetch('http://localhost:3000/reservations');
-  const moviesData = await res.json();
-
-  const reservationsData = reservationsQuery.data;
-  const facultiesData = facultiesQuery.data;
-
-  return {
-    props: {
-      reservations: reservationsData,
-      faculties: facultiesData,
-      test: moviesData,
-    },
-  };
-}
+ReservationsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

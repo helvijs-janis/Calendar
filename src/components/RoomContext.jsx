@@ -1,32 +1,36 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 import useFetch from '../services/useFetch';
 import { useReservationContext } from './ReservationContext';
 
 const RoomContext = React.createContext(null);
 
-let initialRooms;
-try {
-  initialRooms = JSON.parse(localStorage.getItem('rooms')) ?? [];
-} catch {
-  initialRooms = [];
-}
+const getRooms = async () => {
+  const result = axios.get('http://localhost:3000/rooms').then((res) => res.data);
+  return result;
+};
 
 export function RoomsProvider({ children }) {
-  const { data: rooms } = useFetch(
-    'rooms',
-  );
+  const roomsQuery = useQuery('rooms', getRooms);
+
+  const [initialRooms, setInitialRooms] = useState([]);
+
+  useEffect(() => {
+    if (roomsQuery.data) {
+      setInitialRooms(roomsQuery.data);
+    }
+  }, [roomsQuery]);
 
   const { data: buildings } = useFetch(
     'buildings',
   );
 
-  useEffect(() => localStorage.setItem('rooms', JSON.stringify(rooms)), [rooms]);
   useEffect(() => localStorage.setItem('buildings', JSON.stringify(buildings)), [buildings]);
 
   const { initialReservations } = useReservationContext();
-  const [filteredRooms, setFilteredRooms] = useState(initialRooms);
+  const [filteredRooms, setFilteredRooms] = useState([]);
 
   const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4);
   const [hideUnavailableRooms, setHideUnavailableRooms] = useState(false);
@@ -110,6 +114,7 @@ export function RoomsProvider({ children }) {
     setFilteredRooms(result);
   }, [selectedBuildingOptions,
     initialReservations,
+    initialRooms,
     hideUnavailableRooms,
     selectedOccupancy,
     hideRoomsWithoutLargeBlackboard,

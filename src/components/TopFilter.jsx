@@ -18,10 +18,13 @@ options.splice(0, 0, {
   fullname: 'Visas fakultātes',
 });
 
-const courses = ['Visi', '1', '2', '3', '4', '5'];
+const courses = ['Visi', '1', '2', '3', '4', '5', '6'];
 
 const TopFilter = () => {
-  const { setSelectedFaculty, setSelectedCourse, setSelectedSubject } = useReservationContext();
+  const {
+    setSelectedFaculty, setSelectedCourse, setSelectedSubject,
+  } = useReservationContext();
+
   const faculties = fetchFaculties();
 
   const [currentFaculty, setCurrentFaculty] = useState(options[0]);

@@ -1,0 +1,44 @@
+.pievienot-button {
+  float: right;
+}
+
+.info-button {
+  float: right;
+}
+
+.pievienot-modal {
+  background-color: #ffffff;
+}
+
+.bx--modal-container {
+  width: 32%;
+  border-radius: 5px;
+}
+
+.bx--modal-container .bx--modal-header,
+.bx--modal-container .bx--modal-content,
+.bx--modal-container .bx--modal-content__regular-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nosaukums-input {
+  width: 80%;
+}
+
+.atbildigais-input {
+  width: 60%;
+}
+
+.parent {
+  height: 30px;
+}
+.parent > span {
+  line-height: 30px;
+  vertical-align: middle;
+}
+
+.modal-icon {
+  line-height: 30px;
+  vertical-align: middle;
+}

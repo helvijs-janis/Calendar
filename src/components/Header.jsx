@@ -1,21 +1,15 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 import {
-  Calendar32, Group32, UserAvatar32, Settings32, Add16,
+  Calendar32, Group32, UserAvatar32, Settings32,
 } from '@carbon/icons-react';
-import { useState, React } from 'react';
-import { useQuery } from 'react-query';
+import { React } from 'react';
 import {
   Header,
   HeaderName,
   HeaderMenuItem,
   HeaderGlobalBar,
   HeaderGlobalAction,
-  SideNav,
-  SideNavItems,
   HeaderContainer,
 } from 'carbon-components-react/lib/components/UIShell';
-import { fetchBuildings } from '../queries/RoomQueries';
 
 const HeaderBaseWActions = () => (
   <HeaderContainer
