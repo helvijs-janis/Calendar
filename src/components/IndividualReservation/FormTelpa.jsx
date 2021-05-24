@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import {
   React,
@@ -16,7 +17,7 @@ import {
   handleSelectTelpa,
 } from './FormFunctions';
 
-export default function FormTelpa() {
+export default function FormTelpa({ setCurrentTelpa }) {
   const [currentItem, setCurrentItem] = useState();
   return (
     <Grid>
@@ -30,7 +31,7 @@ export default function FormTelpa() {
               label="Dropdown menu options"
               items={httpGet('https://tone.id.lv/api/buildings')}
               itemToString={(item) => (item ? item.title : '')}
-              onChange={handleSelectEka}
+              onChange={(e) => handleSelectEka(e.target.value)}
             />
           </FormGroup>
           <p>{setCurrentItem.value}</p>
@@ -46,7 +47,7 @@ export default function FormTelpa() {
               label="Dropdown menu options"
               items={httpGet('https://tone.id.lv/api/rooms')}
               itemToString={(item) => (item ? item.title : '')}
-              onChange={handleSelectTelpa}
+              onChange={({ selectedItem }) => setCurrentTelpa(selectedItem)}
             />
           </FormGroup>
         </Column>

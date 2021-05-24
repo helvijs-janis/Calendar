@@ -36,11 +36,17 @@ export default function Create() {
   let eka;
   let telpa;
   let fakultate;
+  const [currentTelpa, setCurrentTelpa] = useState('');
   const [currentItem, setCurrentItem] = useState();
   const [inputText, setInputText] = useState('');
   const [historyList, setHistoryList] = useState([]);
   const history = useHistory();
   const navigateToMain = useCallback(() => history.push('/'), [history]);
+  const handleSubmitPoga = (e) => {
+    e.preventDefault();
+    const telpasID = currentTelpa.id;
+    console.log(telpasID);
+  };
   return (
     <div>
       <Form>
@@ -48,7 +54,7 @@ export default function Create() {
         {/* Sākās laika un datuma ievade control+k+c vai control+? */}
         <FormTime />
         {/* Beidzās laika un datuma ievade */}
-        <FormTelpa />
+        <FormTelpa setCurrentTelpa={setCurrentTelpa} />
         <Tabs scrollIntoView={false}>
           <Tab
             href="#"
@@ -73,45 +79,47 @@ export default function Create() {
             placeholder="nepieciešams papildus aprīkojums vai kādas instrukcijas? (nav obligāti)"
           />
         </FormGroup>
+        <ButtonSet>
+          <Button
+            kind="primary"
+            type="submit"
+            // onClick={inputCheck()}
+            onClick={handleSubmitPoga}
+            // {() => {
+            //   let startTimeData = getMeADate(
+            //     document.getElementById('sakumaDatums').value,
+            //     document.getElementById('sakumaLaiks').value,
+            //   );
+            //   let endTimeData = getMeADate(
+            //     document.getElementById('beiguDatums').value,
+            //     document.getElementById('beiguLaiks').value,
+            //   );
+            //   startTimeData = startTimeData.replace('/', '-');
+            //   endTimeData = endTimeData.replace('/', '-');
+            //   const data = {};
+            //   data.title = document.getElementById('NosaukumaIevade').value;
+            //   data.resourceId = currentTelpa.id;// document.getElementById('TelpasIevade').value;
+            //   data.start = startTimeData;
+            //   data.end = endTimeData;
+            //   data.studyProgramId = document.getElementById('atbildigaFakultate').value;
+            //   data.type = 'lekcija';
+            //   data.responsiblePerson = ['testaPasniedzejs'];
+            //   console.log(data);
+            //   // httpPost2('https://tone.id.lv/api/reservations/', data);
+            // }}
+          >
+            Pievienot
+          </Button>
+          <Button
+            kind="secondary"
+            onClick={() => {
+              navigateToMain();
+            }}
+          >
+            Atcelt
+          </Button>
+        </ButtonSet>
       </Form>
-      <ButtonSet>
-        <Button
-          kind="primary"
-          // onClick={inputCheck()}
-          onClick={() => {
-            let startTimeData = getMeADate(
-              document.getElementById('sakumaDatums').value,
-              document.getElementById('sakumaLaiks').value,
-            );
-            let endTimeData = getMeADate(
-              document.getElementById('beiguDatums').value,
-              document.getElementById('beiguLaiks').value,
-            );
-            startTimeData = startTimeData.replace('/', '-');
-            endTimeData = endTimeData.replace('/', '-');
-            const data = {};
-            data.title = document.getElementById('NosaukumaIevade').value;
-            data.resourceId = document.getElementById('TelpasIevade').value;
-            data.start = startTimeData;
-            data.end = endTimeData;
-            data.studyProgramId = document.getElementById('atbildigaFakultate').value;
-            data.type = 'lekcija';
-            data.responsiblePerson = ['testaPasniedzejs'];
-            console.log(data);
-            // httpPost2('https://tone.id.lv/api/reservations/', data);
-          }}
-        >
-          Pievienot
-        </Button>
-        <Button
-          kind="secondary"
-          onClick={() => {
-            navigateToMain();
-          }}
-        >
-          Atcelt
-        </Button>
-      </ButtonSet>
     </div>
   );
 }
