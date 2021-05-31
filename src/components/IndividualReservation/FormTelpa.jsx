@@ -13,11 +13,9 @@ import {
 } from 'carbon-components-react';
 import {
   httpGet,
-  handleSelectEka,
-  handleSelectTelpa,
 } from './FormFunctions';
 
-export default function FormTelpa({ setCurrentTelpa }) {
+export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
   const [currentItem, setCurrentItem] = useState();
   return (
     <Grid>
@@ -31,7 +29,7 @@ export default function FormTelpa({ setCurrentTelpa }) {
               label="Dropdown menu options"
               items={httpGet('https://tone.id.lv/api/buildings')}
               itemToString={(item) => (item ? item.title : '')}
-              onChange={(e) => handleSelectEka(e.target.value)}
+              onChange={({ selectedItem }) => setCurrentEka(selectedItem)}
             />
           </FormGroup>
           <p>{setCurrentItem.value}</p>

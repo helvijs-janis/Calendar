@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   React,
 } from 'react';
@@ -9,7 +10,6 @@ import {
 } from 'carbon-components-react';
 import {
   httpGet,
-  handleSelectFakultate,
 } from './FormFunctions';
 
 const items = [
@@ -40,7 +40,7 @@ const items = [
   },
 ];
 
-export default function FormTabA() {
+export default function FormTabA({ setCurrentFakultate, setCurrentPrieksmets }) {
   return (
     <Form>
       <FormGroup>
@@ -50,7 +50,7 @@ export default function FormTabA() {
           label="Dropdown menu options"
           items={httpGet('https://tone.id.lv/api/faculty')}
           itemToString={(item) => (item ? item.fullname : '')}
-          onChange={handleSelectFakultate}
+          onChange={({ selectedItem }) => setCurrentFakultate(selectedItem)}
         />
       </FormGroup>
       <FormGroup>
@@ -74,6 +74,7 @@ export default function FormTabA() {
       <FormGroup>
         <TextInput
           labelText="Priekšmets"
+          onChange={(event) => setCurrentPrieksmets(event.target.value)}
         />
       </FormGroup>
       <FormGroup>

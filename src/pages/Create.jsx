@@ -36,16 +36,24 @@ export default function Create() {
   let eka;
   let telpa;
   let fakultate;
+  const [currentEka = {}, setCurrentEka] = useState('');
   const [currentTelpa, setCurrentTelpa] = useState('');
+  const [currentFakultate = {}, setCurrentFakultate] = useState('');
+  const [currentPrieksmets, setCurrentPrieksmets] = useState('');
   const [currentItem, setCurrentItem] = useState();
   const [inputText, setInputText] = useState('');
   const [historyList, setHistoryList] = useState([]);
   const history = useHistory();
   const navigateToMain = useCallback(() => history.push('/'), [history]);
   const handleSubmitPoga = (e) => {
-    e.preventDefault();
-    const telpasID = currentTelpa.id;
-    console.log(telpasID);
+    // e.preventDefault();
+    const dati = {};
+    dati.eka = currentEka.id;
+    dati.telpa = currentTelpa.id;
+    dati.fakultate = currentFakultate.id;
+    dati.prieksmets = currentPrieksmets;
+    console.log(dati);
+    // httpPost2('https://tone.id.lv/api/reservations/', dati);
   };
   return (
     <div>
@@ -54,14 +62,17 @@ export default function Create() {
         {/* Sākās laika un datuma ievade control+k+c vai control+? */}
         <FormTime />
         {/* Beidzās laika un datuma ievade */}
-        <FormTelpa setCurrentTelpa={setCurrentTelpa} />
+        <FormTelpa setCurrentTelpa={setCurrentTelpa} setCurrentEka={setCurrentEka} />
         <Tabs scrollIntoView={false}>
           <Tab
             href="#"
             id="tab-1"
             label="Par notikumu"
           >
-            <TabA />
+            <TabA
+              setCurrentFakultate={setCurrentFakultate}
+              setCurrentPrieksmets={setCurrentPrieksmets}
+            />
           </Tab>
           <Tab
             href="#"
@@ -82,7 +93,7 @@ export default function Create() {
         <ButtonSet>
           <Button
             kind="primary"
-            type="submit"
+            // type="submit"
             // onClick={inputCheck()}
             onClick={handleSubmitPoga}
             // {() => {

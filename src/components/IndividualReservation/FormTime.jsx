@@ -27,8 +27,9 @@ export default function FormTime() {
                 <FormGroup>
                   <DatePicker datePickerType="single" dateFormat="Y-m-d" locale="lv" labelText="label">
                     <DatePickerInput
-                      required
+                      // required
                       placeholder="yyyy-mm-dd"
+                      format="YYYY-MM-DD"
                       labelText=""
                       id="sakumaDatums"
                     />
@@ -53,15 +54,16 @@ export default function FormTime() {
             <Row>
               <Column sm={1} md={2}>
                 <FormGroup>
-                  <TimePicker id="beiguLaiks" />
+                  <TimePicker id="beiguLaiks" format="hh:mm" />
                 </FormGroup>
               </Column>
               <Column sm={6} md={9}>
                 <FormGroup>
                   <DatePicker datePickerType="single" dateFormat="Y-m-d" locale="lv">
                     <DatePickerInput
-                      required
+                      // required
                       placeholder="yyyy-mm-dd"
+                      format="Y-m-d"
                       labelText=""
                       id="beiguDatums"
                     />
