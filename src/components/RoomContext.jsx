@@ -1,62 +1,71 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable arrow-body-style */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 import useFetch from '../services/useFetch';
+import { useReservationContext } from './ReservationContext';
 
 const RoomContext = React.createContext(null);
 
-let initialReservations;
-try {
-  initialReservations = JSON.parse(localStorage.getItem('reservations')) ?? [];
-} catch {
-  initialReservations = [];
-}
+const getRooms = async () => {
+  const result = axios.get('https://tone.id.lv/api2/rooms').then((res) => res.data);
+  return result;
+};
 
-let initialRooms;
-try {
-  initialRooms = JSON.parse(localStorage.getItem('rooms')) ?? [];
-} catch {
-  initialRooms = [];
-}
+export function RoomsProvider({ children }) {
+  const roomsQuery = useQuery('rooms', getRooms);
 
-let initialBuildings;
-try {
-  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? [];
-} catch {
-  initialBuildings = [];
-}
+  const [initialRooms, setInitialRooms] = useState([]);
 
-export function RoomsProvider(props) {
-  const { data: rooms } = useFetch(
-    'rooms',
-  );
-
-  const { data: reservations } = useFetch(
-    'reservations',
-  );
+  useEffect(() => {
+    if (roomsQuery.data) {
+      setInitialRooms(roomsQuery.data);
+    }
+  }, [roomsQuery]);
 
   const { data: buildings } = useFetch(
     'buildings',
   );
 
-  useEffect(() => localStorage.setItem('rooms', JSON.stringify(rooms)), [rooms]);
-  useEffect(() => localStorage.setItem('reservations', JSON.stringify(reservations)), [reservations]);
   useEffect(() => localStorage.setItem('buildings', JSON.stringify(buildings)), [buildings]);
 
-  const [filteredRooms, setFilteredRooms] = useState(initialRooms);
-  const [filteredReservations, setFilteredReservations] = useState(initialReservations);
+  const { initialReservations } = useReservationContext();
+  const [filteredRooms, setFilteredRooms] = useState([]);
 
-  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState([0, 1, 2, 3]);
+  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4);
+  const [hideUnavailableRooms, setHideUnavailableRooms] = useState(false);
   const [selectedOccupancy, setSelectedOccupancy] = useState(50);
   const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
+  const [hideRoomsWithoutChalkBlackboard, setHideRoomsWithoutChalkBlackboard] = useState(false);
+  const [hideRoomsWithoutComputers, setHideRoomsWithoutComputers] = useState(false);
+  const [hideRoomsWithoutProjector, setHideRoomsWithoutProjector] = useState(false);
 
   const filterByBuilding = (array) => {
-    return array.filter((item) => selectedBuildingOptions.includes(item.buildingId));
+    if (selectedBuildingOptions === 4) {
+      return array;
+    }
+
+    return array.filter((item) => item.buildingId === selectedBuildingOptions);
+  };
+
+  const filterByAvailability = (array, reservations) => {
+    const start1 = '2021-02-02T08:30:00';
+    const end1 = '2021-02-02T10:30:00';
+    const roomIds = [];
+    reservations.forEach((element) => {
+      if ((element.start <= end1) && (element.end >= start1)) {
+        roomIds.push(element.resourceId);
+      }
+    });
+    // console.log(roomIds);
+
+    return array;
   };
 
   const filterByOccupancy = (array) => {
+    if (Number.isNaN(selectedOccupancy)) {
+      return array;
+    }
     return array.filter((item) => item.occupancy >= selectedOccupancy);
   };
 
@@ -68,33 +77,77 @@ export function RoomsProvider(props) {
     return array;
   };
 
+  const filterByChalkBlackboard = (array) => {
+    if (hideRoomsWithoutChalkBlackboard) {
+      return array.filter((item) => item.inventory.includes('Krita tafele'));
+    }
+
+    return array;
+  };
+
+  const filterByComputers = (array) => {
+    if (hideRoomsWithoutComputers) {
+      return array.filter((item) => item.inventory.includes('Datori'));
+    }
+
+    return array;
+  };
+
+  const filterByProjector = (array) => {
+    if (hideRoomsWithoutProjector) {
+      return array.filter((item) => item.inventory.includes('Projektors'));
+    }
+
+    return array;
+  };
+
   useEffect(() => {
     let result = initialRooms;
+    const test = initialReservations;
     result = filterByBuilding(result);
+    result = filterByAvailability(result, test);
     result = filterByOccupancy(result);
     result = filterByLargeBlackboard(result);
+    result = filterByChalkBlackboard(result);
+    result = filterByComputers(result);
+    result = filterByProjector(result);
     setFilteredRooms(result);
-  }, [selectedBuildingOptions, selectedOccupancy, hideRoomsWithoutLargeBlackboard]);
+  }, [selectedBuildingOptions,
+    initialReservations,
+    initialRooms,
+    hideUnavailableRooms,
+    selectedOccupancy,
+    hideRoomsWithoutLargeBlackboard,
+    hideRoomsWithoutChalkBlackboard,
+    hideRoomsWithoutComputers,
+    hideRoomsWithoutProjector]);
 
   const contextValue = {
     filteredRooms,
-    filteredReservations,
     setSelectedBuildingOptions,
+    setHideUnavailableRooms,
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
+    setHideRoomsWithoutChalkBlackboard,
+    setHideRoomsWithoutComputers,
+    setHideRoomsWithoutProjector,
   };
 
   return (
     <RoomContext.Provider value={contextValue}>
-      {props.children}
+      {children}
     </RoomContext.Provider>
   );
 }
 
-export function useFilterRooms() {
+export function useRoomsContext() {
   const context = useContext(RoomContext);
   if (!context) {
-    throw new Error('useFilterRooms must be used within a RoomProvider');
+    throw new Error('useRoomsContext must be used within a ReservationProvider');
   }
   return context;
 }
+
+RoomsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

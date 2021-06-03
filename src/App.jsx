@@ -1,29 +1,25 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Grid, Row, Column } from 'carbon-components-react';
-import EventCalendar from './components/EventCalendar';
-import HeaderBaseWActions from './components/Header';
-import TopFilter from './components/TopFilter';
+import { Route } from 'react-router-dom';
+import Home from './pages/Home';
+import List from './pages/List';
+import Create from './pages/Create';
 import { RoomsProvider } from './components/RoomContext';
+import { ReservationsProvider } from './components/ReservationContext';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RoomsProvider>
-        <HeaderBaseWActions />
-        <Grid fullWidth>
-          <Row>
-            <Column lg={2} />
-            <Column lg={10}>
-              <TopFilter />
-              <EventCalendar />
-            </Column>
-          </Row>
-        </Grid>
-      </RoomsProvider>
+      <ReservationsProvider>
+        <RoomsProvider>
+          <Route exact path="/"><Home /></Route>
+          <Route path="/list"><List /></Route>
+          <Route path="/create"><Create /></Route>
+        </RoomsProvider>
+      </ReservationsProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

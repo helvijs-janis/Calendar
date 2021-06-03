@@ -1,26 +1,66 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import resourceTimeline from '@fullcalendar/resource-timeline';
-import { fetchRooms, fetchReservations } from '../queries/RoomQueries';
-import { useFilterRooms } from './RoomContext';
+import { format } from 'date-fns';
+import interactionPlugin from '@fullcalendar/interaction';
+import { useRoomsContext } from './RoomContext';
+import { useReservationContext } from './ReservationContext';
 
-export default function Calendar() {
-  const { filteredRooms, filteredReservations } = useFilterRooms();
+export default function Calendar({ setOpen, setDateInfo }) {
+  const { filteredRooms } = useRoomsContext();
+  const { filteredReservations, setSelectedDate } = useReservationContext();
+  const calendarRef = React.useRef();
+
+  const history = useHistory();
+  const navigateToList = useCallback(() => history.push('/list'), [history]);
+
+  const handleDateClick = (info) => {
+    setOpen(true);
+    setDateInfo(info);
+  };
 
   return (
     <div className="demo-app-main">
       <FullCalendar
+        ref={calendarRef}
         schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         initialView="resourceTimeline"
-        plugins={[resourceTimeline]}
+        plugins={[resourceTimeline, interactionPlugin]}
+        height="auto"
         headerToolbar={{
-          left: 'prev,next',
+          left: 'previous,next',
           center: 'title',
-          right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
+          right: 'list,resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
+        }}
+        customButtons={{
+          previous: {
+            icon: 'chevron-left',
+            click() {
+              const calendarApi = calendarRef.current.getApi();
+              calendarApi.prev();
+              const date = format(calendarApi.getDate(), 'yyyy-MM-dd');
+              setSelectedDate(date);
+            },
+          },
+          next: {
+            icon: 'chevron-right',
+            click() {
+              const calendarApi = calendarRef.current.getApi();
+              calendarApi.next();
+              const date = format(calendarApi.getDate(), 'yyyy-MM-dd');
+              setSelectedDate(date);
+            },
+          },
+          list: {
+            text: 'list',
+            click() {
+              navigateToList();
+            },
+          },
         }}
         now="2021-02-02T08:30:00"
-        nowIndicator
         weekends
         firstDay={1}
         slotMinTime="08:00:00"
@@ -28,11 +68,11 @@ export default function Calendar() {
         resourceAreaColumns={[
           {
             field: 'title',
-            headerContent: 'Title',
+            headerContent: 'Telpa',
           },
           {
             field: 'occupancy',
-            headerContent: 'Occupancy',
+            headerContent: 'Vietu skaits',
           },
         ]}
         resources={filteredRooms}
@@ -44,6 +84,7 @@ export default function Calendar() {
           meridiem: false,
           hour12: false,
         }}
+        dateClick={(info) => handleDateClick(info)}
         navLinks
       />
     </div>

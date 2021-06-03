@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const baseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseUrl = 'https://tone.id.lv/api2/';
 
 export default function useFetch(url) {
   const [data, setData] = useState(null);
