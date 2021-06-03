@@ -46,7 +46,7 @@ export default function Create() {
   const history = useHistory();
   const navigateToMain = useCallback(() => history.push('/'), [history]);
   const handleSubmitPoga = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const dati = {};
     dati.eka = currentEka.id;
     dati.telpa = currentTelpa.id;
