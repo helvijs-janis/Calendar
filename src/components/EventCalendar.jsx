@@ -40,7 +40,7 @@ export default function Calendar({ setOpen, setDateInfo }) {
             click() {
               const calendarApi = calendarRef.current.getApi();
               calendarApi.prev();
-              const date = format(calendarApi.getDate(), "yyyy-MM-dd'T08:30:00'");
+              const date = format(calendarApi.getDate(), 'yyyy-MM-dd');
               setSelectedDate(date);
             },
           },
@@ -49,7 +49,7 @@ export default function Calendar({ setOpen, setDateInfo }) {
             click() {
               const calendarApi = calendarRef.current.getApi();
               calendarApi.next();
-              const date = format(calendarApi.getDate(), "yyyy-MM-dd'T08:30:00'");
+              const date = format(calendarApi.getDate(), 'yyyy-MM-dd');
               setSelectedDate(date);
             },
           },

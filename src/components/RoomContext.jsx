@@ -8,7 +8,7 @@ import { useReservationContext } from './ReservationContext';
 const RoomContext = React.createContext(null);
 
 const getRooms = async () => {
-  const result = axios.get('http://localhost:3000/rooms').then((res) => res.data);
+  const result = axios.get('https://tone.id.lv/api2/rooms').then((res) => res.data);
   return result;
 };
 
@@ -57,7 +57,7 @@ export function RoomsProvider({ children }) {
         roomIds.push(element.resourceId);
       }
     });
-    console.log(roomIds);
+    // console.log(roomIds);
 
     return array;
   };

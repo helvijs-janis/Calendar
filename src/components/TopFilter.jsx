@@ -2,7 +2,7 @@ import { useState, React } from 'react';
 import {
   Grid, Row, Column, Accordion, AccordionItem, Dropdown, TextInput,
 } from 'carbon-components-react';
-import { fetchFaculties } from '../queries/RoomQueries';
+// import { fetchFaculties } from '../queries/RoomQueries';
 import { useReservationContext } from './ReservationContext';
 
 let initialFaculties;
@@ -25,15 +25,13 @@ const TopFilter = () => {
     setSelectedFaculty, setSelectedCourse, setSelectedSubject,
   } = useReservationContext();
 
-  const faculties = fetchFaculties();
+  // const faculties = fetchFaculties();
 
   const [currentFaculty, setCurrentFaculty] = useState(options[0]);
   const [currentCourse, setCurrentCourse] = useState(courses[0]);
   const [currentSubject, setCurrentSubject] = useState('');
 
-  return faculties.isLoading ? (
-    'Loading...'
-  ) : (
+  return (
     <Accordion>
       <AccordionItem title="Pasākuma filtri">
         <Grid>
