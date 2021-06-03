@@ -27,7 +27,7 @@ export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
               id="default"
               titleText="Ēka"
               label="Dropdown menu options"
-              items={httpGet('https://tone.id.lv/api/buildings')}
+              items={httpGet('https://tone.id.lv/api/buildings/')}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => setCurrentEka(selectedItem)}
             />
@@ -43,7 +43,7 @@ export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
               required
               titleText="Telpa"
               label="Dropdown menu options"
-              items={httpGet('https://tone.id.lv/api/rooms')}
+              items={httpGet('https://tone.id.lv/api/rooms/')}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => setCurrentTelpa(selectedItem)}
             />

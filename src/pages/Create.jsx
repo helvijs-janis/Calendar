@@ -53,7 +53,7 @@ export default function Create() {
     dati.fakultate = currentFakultate.id;
     dati.prieksmets = currentPrieksmets;
     console.log(dati);
-    // httpPost2('https://tone.id.lv/api/reservations/', dati);
+    // httpPost2('https://tone.id.lv/api2/reservations/', dati);
   };
   return (
     <div>
