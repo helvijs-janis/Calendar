@@ -21,7 +21,7 @@ export function formatDate(info) {
 }
 
 export function formatToDbDateString(info) {
-  const result = format(info.date, "yyyy-MM-dd'T'HH:mm");
+  const result = format(info.date, "yyyy-MM-dd'T'HH:mm'+02:00'");
   return result;
 }
 
@@ -30,7 +30,7 @@ export function formatDateAddingHourAndHalf(info) {
     hours: 1,
     minutes: 30,
   });
-  const result = format(dateHelper, "yyyy-MM-dd'T'HH:mm");
+  const result = format(dateHelper, "yyyy-MM-dd'T'HH:mm'+02:00'");
   return result;
 }
 
