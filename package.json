@@ -23,6 +23,7 @@
     "eslint-plugin-flowtype": "^5.7.2",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-testing-library": "^4.4.0",
+    "fullcalendar": "^5.1.0",
     "json-server": "^0.16.3",
     "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
