@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
@@ -30,7 +31,7 @@ const ModalCreateForm = ({
     onFormSubmit(data);
   });
 
-  return (
+  return !persons.isLoading && (
     <form onSubmit={onSubmit}>
       <Controller
         control={control}
