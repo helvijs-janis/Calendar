@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 import {
@@ -7,7 +8,7 @@ import {
   FormGroup,
 } from 'carbon-components-react';
 
-export default function FormTop() {
+export default function FormTop({ setCurrentTitle }) {
   return (
     <div>
       <h1>Jauns notikums</h1>
@@ -18,6 +19,7 @@ export default function FormTop() {
           labelText="Nosaukums"
           invalidText="Ievadiet nosaukumu!"
           placeholder="Rezervācijas nosaukums"
+          onChange={(event) => setCurrentTitle(event.target.value)}
         />
       </FormGroup>
       <br />

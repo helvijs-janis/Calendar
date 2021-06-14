@@ -8,9 +8,7 @@ import {
   FormGroup,
   Form,
 } from 'carbon-components-react';
-import {
-  httpGet,
-} from './FormFunctions';
+import { fetchFaculties, fetchPersons } from '../../queries/RoomQueries';
 
 const items = [
   {
@@ -40,15 +38,17 @@ const items = [
   },
 ];
 
-export default function FormTabA({ setCurrentFakultate, setCurrentPrieksmets }) {
-  return (
+export default function FormTabA({ setCurrentFakultate, setCurrentPrieksmets, setCurrentPerson }) {
+  const faculties = fetchFaculties();
+  const persons = fetchPersons();
+  return !faculties.isLoading && !persons.isLoading && (
     <Form>
       <FormGroup>
         <Dropdown
           id="atbildigaFakultate"
           titleText="Atbildīgā fakultāte"
           label="Dropdown menu options"
-          items={httpGet('https://tone.id.lv/api/faculty')}
+          items={faculties.data}
           itemToString={(item) => (item ? item.fullname : '')}
           onChange={({ selectedItem }) => setCurrentFakultate(selectedItem)}
         />
@@ -93,8 +93,9 @@ export default function FormTabA({ setCurrentFakultate, setCurrentPrieksmets }) 
           id="default"
           titleText="Atbildīgais"
           label="Dropdown menu options"
-          items={items}
-          itemToString={(item) => (item ? item.text : '')}
+          items={persons.data}
+          itemToString={(item) => (item ? item.fullname : '')}
+          onChange={({ selectedItem }) => setCurrentPerson(selectedItem)}
         />
       </FormGroup>
     </Form>

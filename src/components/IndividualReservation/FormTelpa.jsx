@@ -11,23 +11,24 @@ import {
   FormGroup,
   Dropdown,
 } from 'carbon-components-react';
-import {
-  httpGet,
-} from './FormFunctions';
+import { fetchBuildings, fetchRooms } from '../../queries/RoomQueries';
 
 export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
+  const buildings = fetchBuildings();
+  const rooms = fetchRooms();
+
   const [currentItem, setCurrentItem] = useState();
-  return (
+  return !rooms.isLoading && !buildings.isLoading && (
     <Grid>
       <Row>
-        <Column size={4}>
+        <Column size={5}>
           <FormGroup>
             <Dropdown
               required
               id="default"
               titleText="Ēka"
               label="Dropdown menu options"
-              items={httpGet('https://tone.id.lv/api/buildings/')}
+              items={buildings.data}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => setCurrentEka(selectedItem)}
             />
@@ -43,7 +44,7 @@ export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
               required
               titleText="Telpa"
               label="Dropdown menu options"
-              items={httpGet('https://tone.id.lv/api/rooms/')}
+              items={rooms.data}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => setCurrentTelpa(selectedItem)}
             />
