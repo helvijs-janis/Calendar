@@ -24,25 +24,17 @@ export function fetchReservations() {
 }
 
 export function fetchBuildings() {
-  return useQuery('buildings', async () => axios
-    .get('https://tone.id.lv/api2/buildings')
-    .then((res) => res.data));
+  return useQuery('buildings', async () => axios.get('https://tone.id.lv/api2/buildings').then((res) => res.data));
 }
 
 export function fetchPersons() {
-  return useQuery('persons', async () => axios
-    .get('https://tone.id.lv/api2/persons')
-    .then((res) => res.data));
+  return useQuery('persons', async () => axios.get('https://tone.id.lv/api2/persons').then((res) => res.data));
 }
 
-// export function fetchFaculties() {
-//   return useQuery('faculties', async () => axios
-//     .get('https://tone.id.lv/api2/faculties')
-//     .then((res) => res.data));
-// }
+export function fetchFaculties() {
+  return useQuery('faculties', async () => axios.get('https://tone.id.lv/api2/faculties').then((res) => res.data));
+}
 
 export function fetchRooms() {
-  return useQuery('rooms', async () => axios
-    .get('https://tone.id.lv/api2/rooms')
-    .then((res) => res.data));
+  return useQuery('rooms', async () => axios.get('https://tone.id.lv/api2/rooms').then((res) => res.data));
 }

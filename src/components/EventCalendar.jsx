@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -7,10 +9,12 @@ import { format } from 'date-fns';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useRoomsContext } from './RoomContext';
 import { useReservationContext } from './ReservationContext';
+import { fetchFaculties } from '../queries/RoomQueries';
 
 export default function Calendar({ setOpen, setDateInfo }) {
   const { filteredRooms } = useRoomsContext();
   const { filteredReservations, setSelectedDate } = useReservationContext();
+  const faculties = fetchFaculties();
   const calendarRef = React.useRef();
 
   const history = useHistory();
@@ -21,7 +25,9 @@ export default function Calendar({ setOpen, setDateInfo }) {
     setDateInfo(info);
   };
 
-  return (
+  return faculties.isLoading ? (
+    'Loading...'
+  ) : (
     <div className="demo-app-main">
       <FullCalendar
         ref={calendarRef}
@@ -86,6 +92,14 @@ export default function Calendar({ setOpen, setDateInfo }) {
         }}
         dateClick={(info) => handleDateClick(info)}
         navLinks
+        eventDidMount={(event) => {
+          const { facultyId } = event.event._def.extendedProps;
+          const faculty = faculties.data.find((e) => e.id === facultyId);
+          if (faculty !== undefined) {
+            event.el.style.backgroundColor = faculty.color;
+          }
+        }}
+        nowIndicator
       />
     </div>
   );

@@ -102,7 +102,7 @@ const Sidebar = () => {
             value={currentOccupancy || 0}
             label="Ietilpība (studentu skaits)"
             invalidText="Number is not valid"
-            step={50}
+            step={10}
             onChange={(evt) => {
               const newValue = evt.imaginaryTarget.valueAsNumber;
               setCurrentOccupancy(newValue);
