@@ -49,15 +49,17 @@ export function RoomsProvider({ children }) {
   };
 
   const filterByAvailability = (array, reservations) => {
-    const start1 = '2021-02-02T08:30:00';
-    const end1 = '2021-02-02T10:30:00';
-    const roomIds = [];
-    reservations.forEach((element) => {
-      if ((element.start <= end1) && (element.end >= start1)) {
-        roomIds.push(element.resourceId);
-      }
-    });
-    // console.log(roomIds);
+    if (hideUnavailableRooms) {
+      const start1 = '2021-02-02T06:30:00Z';
+      const end1 = '2021-02-02T08:30:00Z';
+      const roomIds = [];
+      reservations.forEach((element) => {
+        if ((element.start <= end1) && (element.end >= start1)) {
+          roomIds.push(element.resourceId);
+        }
+      });
+      return array.filter((room) => roomIds.indexOf(room.id) === -1);
+    }
 
     return array;
   };

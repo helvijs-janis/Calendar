@@ -34,15 +34,15 @@ const getFaculties = async () => {
 };
 
 export function ReservationsProvider(props) {
-  // const { data: faculties } = useFetch(
-  //   'faculties',
-  // );
+  const { data: faculties } = useFetch(
+    'faculties',
+  );
 
-  // useEffect(() => localStorage.setItem('faculties', JSON.stringify(faculties)), [faculties]);
+  useEffect(() => localStorage.setItem('faculties', JSON.stringify(faculties)), [faculties]);
 
   const [selectedDate, setSelectedDate] = useState('2021-02-02');
   const reservationsQuery = useQuery(['reservations', { start: selectedDate }], getReservations);
-  // const facultiesQuery = useQuery('faculties', getFaculties);
+  const facultiesQuery = useQuery('faculties', getFaculties);
 
   const [initialReservations, setInitialReservations] = useState([]);
   const [initialFaculties, setInitialFaculties] = useState([]);
@@ -54,11 +54,11 @@ export function ReservationsProvider(props) {
     }
   }, [reservationsQuery]);
 
-  // useEffect(() => {
-  //   if (facultiesQuery.data) {
-  //     setInitialFaculties(facultiesQuery.data);
-  //   }
-  // }, [facultiesQuery]);
+  useEffect(() => {
+    if (facultiesQuery.data) {
+      setInitialFaculties(facultiesQuery.data);
+    }
+  }, [facultiesQuery]);
 
   const [selectedFaculty, setSelectedFaculty] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState('Visi');
