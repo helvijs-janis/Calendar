@@ -64,6 +64,8 @@ export default function Create() {
     console.log(typeof sakumaDatums);
     let startMonth;
     let endMonth;
+    let startDate;
+    let endDate;
     console.log(AsakumaDatums);
     if (AsakumaDatums.getMonth() <= 8) {
       startMonth = `0${AsakumaDatums.getMonth() + 1}`;
@@ -75,8 +77,24 @@ export default function Create() {
     } else {
       endMonth = AbeiguDatums.getMonth() + 1;
     }
-    const start = `${AsakumaDatums.getUTCFullYear()}-${startMonth}-${AsakumaDatums.getDate()}T${sakumaLaiks}:00.000Z`;
-    const end = `${AbeiguDatums.getUTCFullYear()}-${endMonth}-${AbeiguDatums.getDate()}T${beiguLaiks}:00.000Z`;
+    if (AsakumaDatums.getDate() <= 9) {
+      startDate = `0${AsakumaDatums.getDate()}`;
+    } else {
+      startDate = AsakumaDatums.getDate();
+    }
+    if (AbeiguDatums.getDate() <= 9) {
+      endDate = `0${AbeiguDatums.getDate()}`;
+    } else {
+      endDate = AbeiguDatums.getDate();
+    }
+    if (sakumaLaiks.length <= 4) {
+      setSakumaLaiks(`0${sakumaLaiks}`);
+    }
+    if (beiguLaiks.length <= 4) {
+      setBeiguLaiks(`0${beiguLaiks}`);
+    }
+    const start = `${AsakumaDatums.getUTCFullYear()}-${startMonth}-${startDate}T${sakumaLaiks}:00.000Z`;
+    const end = `${AbeiguDatums.getUTCFullYear()}-${endMonth}-${endDate}T${beiguLaiks}:00.000Z`;
     e.preventDefault();
     const dati = {};
     const sakumaDatumsForm = sakumaDatums;
