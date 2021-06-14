@@ -35,11 +35,11 @@ export function fetchPersons() {
     .then((res) => res.data));
 }
 
-// export function fetchFaculties() {
-//   return useQuery('faculties', async () => axios
-//     .get('https://tone.id.lv/api2/faculties')
-//     .then((res) => res.data));
-// }
+export function fetchFaculties() {
+  return useQuery('faculties', async () => axios
+    .get('https://tone.id.lv/api2/faculties')
+    .then((res) => res.data));
+}
 
 export function fetchRooms() {
   return useQuery('rooms', async () => axios
