@@ -34,7 +34,7 @@ export default function FormTelpa({ setCurrentTelpa, setCurrentEka }) {
             />
           </FormGroup>
           <p>{setCurrentItem.value}</p>
-          <div>{}</div>
+          <div>{ }</div>
         </Column>
         <Column size={1} />
         <Column size={4}>

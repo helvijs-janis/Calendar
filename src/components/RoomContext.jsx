@@ -35,10 +35,13 @@ export function RoomsProvider({ children }) {
   const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4);
   const [hideUnavailableRooms, setHideUnavailableRooms] = useState(false);
   const [selectedOccupancy, setSelectedOccupancy] = useState(50);
-  const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
+
   const [hideRoomsWithoutChalkBlackboard, setHideRoomsWithoutChalkBlackboard] = useState(false);
-  const [hideRoomsWithoutComputers, setHideRoomsWithoutComputers] = useState(false);
+  const [hideRoomsWithoutTV, setHideRoomsWithoutTV] = useState(false);
   const [hideRoomsWithoutProjector, setHideRoomsWithoutProjector] = useState(false);
+  const [hideRoomsWithoutAudio, setHideRoomsWithoutAudio] = useState(false);
+  const [hideRoomsWithoutLargeBlackboard, setHideRoomsWithoutLargeBlackboard] = useState(false);
+  const [hideRoomsWithoutPrinter, setHideRoomsWithoutPrinter] = useState(false);
 
   const filterByBuilding = (array) => {
     if (selectedBuildingOptions === 4) {
@@ -71,25 +74,25 @@ export function RoomsProvider({ children }) {
     return array.filter((item) => item.occupancy >= selectedOccupancy);
   };
 
-  const filterByLargeBlackboard = (array) => {
-    if (hideRoomsWithoutLargeBlackboard) {
-      return array.filter((item) => item.inventory.includes('XL tafele'));
-    }
-
-    return array;
-  };
-
   const filterByChalkBlackboard = (array) => {
     if (hideRoomsWithoutChalkBlackboard) {
-      return array.filter((item) => item.inventory.includes('Krita tafele'));
+      return array.filter((item) => item.inventory.includes('Krīta tāfele'));
     }
 
     return array;
   };
 
-  const filterByComputers = (array) => {
-    if (hideRoomsWithoutComputers) {
-      return array.filter((item) => item.inventory.includes('Datori'));
+  const filterByTV = (array) => {
+    if (hideRoomsWithoutTV) {
+      return array.filter((item) => item.inventory.includes('Televizors'));
+    }
+
+    return array;
+  };
+
+  const filterByAudio = (array) => {
+    if (hideRoomsWithoutAudio) {
+      return array.filter((item) => item.inventory.includes('Audio aprīkojums'));
     }
 
     return array;
@@ -103,26 +106,46 @@ export function RoomsProvider({ children }) {
     return array;
   };
 
+  const filterByLargeBlackboard = (array) => {
+    if (hideRoomsWithoutLargeBlackboard) {
+      return array.filter((item) => item.inventory.includes('XL Tāfele'));
+    }
+
+    return array;
+  };
+
+  const filterByPrinter = (array) => {
+    if (hideRoomsWithoutPrinter) {
+      return array.filter((item) => item.inventory.includes('3D Printeris'));
+    }
+
+    return array;
+  };
+
   useEffect(() => {
     let result = initialRooms;
     const test = initialReservations;
     result = filterByBuilding(result);
     result = filterByAvailability(result, test);
     result = filterByOccupancy(result);
-    result = filterByLargeBlackboard(result);
     result = filterByChalkBlackboard(result);
-    result = filterByComputers(result);
+    result = filterByTV(result);
+    result = filterByAudio(result);
     result = filterByProjector(result);
+    result = filterByLargeBlackboard(result);
+    result = filterByPrinter(result);
     setFilteredRooms(result);
   }, [selectedBuildingOptions,
     initialReservations,
     initialRooms,
     hideUnavailableRooms,
     selectedOccupancy,
-    hideRoomsWithoutLargeBlackboard,
     hideRoomsWithoutChalkBlackboard,
-    hideRoomsWithoutComputers,
-    hideRoomsWithoutProjector]);
+    hideRoomsWithoutTV,
+    hideRoomsWithoutAudio,
+    hideRoomsWithoutProjector,
+    hideRoomsWithoutLargeBlackboard,
+    hideRoomsWithoutPrinter]);
 
   const contextValue = {
     filteredRooms,
@@ -131,8 +154,10 @@ export function RoomsProvider({ children }) {
     setSelectedOccupancy,
     setHideRoomsWithoutLargeBlackboard,
     setHideRoomsWithoutChalkBlackboard,
-    setHideRoomsWithoutComputers,
     setHideRoomsWithoutProjector,
+    setHideRoomsWithoutTV,
+    setHideRoomsWithoutAudio,
+    setHideRoomsWithoutPrinter,
   };
 
   return (

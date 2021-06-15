@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Add16 } from '@carbon/icons-react';
@@ -29,10 +30,12 @@ const Sidebar = () => {
     setSelectedBuildingOptions,
     setHideUnavailableRooms,
     setSelectedOccupancy,
-    setHideRoomsWithoutLargeBlackboard,
     setHideRoomsWithoutChalkBlackboard,
-    setHideRoomsWithoutComputers,
+    setHideRoomsWithoutTV,
+    setHideRoomsWithoutAudio,
     setHideRoomsWithoutProjector,
+    setHideRoomsWithoutLargeBlackboard,
+    setHideRoomsWithoutPrinter,
   } = useRoomsContext();
 
   const items = fetchBuildings();
@@ -41,10 +44,12 @@ const Sidebar = () => {
   const [isCheckedHideUnavailableRooms, setIsCheckedHideUnavailableRooms] = useState(false);
   const [currentOccupancy, setCurrentOccupancy] = useState(50);
 
-  const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(false);
   const [isCheckedChalkBlackboard, setIsCheckedChalkBlackboard] = useState(false);
-  const [isCheckedComputers, setIsCheckedComputers] = useState(false);
+  const [isCheckedTV, setIsCheckedTV] = useState(false);
+  const [isCheckedAudio, setIsCheckedAudio] = useState(false);
   const [isCheckedProjector, setIsCheckedProjector] = useState(false);
+  const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(false);
+  const [isCheckedPrinter, setIsCheckedPrinter] = useState(false);
 
   const history = useHistory();
   const navigateToCreate = useCallback(() => history.push('/create'), [history]);
@@ -113,17 +118,8 @@ const Sidebar = () => {
         <div className="demo-app-sidebar-section">
           <legend>Telpas parametri</legend>
           <Checkbox
-            labelText="XL tāfele"
-            id="checkbox-label-2"
-            checked={isCheckedLargeBlackboard}
-            onChange={() => {
-              setIsCheckedLargeBlackboard(!isCheckedLargeBlackboard);
-              setHideRoomsWithoutLargeBlackboard(!isCheckedLargeBlackboard);
-            }}
-          />
-          <Checkbox
             labelText="Krīta tāfele"
-            id="checkbox-label-3"
+            id="checkbox-label-2"
             checked={isCheckedChalkBlackboard}
             onChange={() => {
               setIsCheckedChalkBlackboard(!isCheckedChalkBlackboard);
@@ -131,12 +127,21 @@ const Sidebar = () => {
             }}
           />
           <Checkbox
-            labelText="Datori"
-            id="checkbox-label-4"
-            checked={isCheckedComputers}
+            labelText="Televizors"
+            id="checkbox-label-3"
+            checked={isCheckedTV}
             onChange={() => {
-              setIsCheckedComputers(!isCheckedComputers);
-              setHideRoomsWithoutComputers(!isCheckedComputers);
+              setIsCheckedTV(!isCheckedTV);
+              setHideRoomsWithoutTV(!isCheckedTV);
+            }}
+          />
+          <Checkbox
+            labelText="Audio aprīkojums"
+            id="checkbox-label-4"
+            checked={isCheckedAudio}
+            onChange={() => {
+              setIsCheckedAudio(!isCheckedAudio);
+              setHideRoomsWithoutAudio(!isCheckedAudio);
             }}
           />
           <Checkbox
@@ -146,6 +151,24 @@ const Sidebar = () => {
             onChange={() => {
               setIsCheckedProjector(!isCheckedProjector);
               setHideRoomsWithoutProjector(!isCheckedProjector);
+            }}
+          />
+          <Checkbox
+            labelText="XL tāfele"
+            id="checkbox-label-6"
+            checked={isCheckedLargeBlackboard}
+            onChange={() => {
+              setIsCheckedLargeBlackboard(!isCheckedLargeBlackboard);
+              setHideRoomsWithoutLargeBlackboard(!isCheckedLargeBlackboard);
+            }}
+          />
+          <Checkbox
+            labelText="Printeris"
+            id="checkbox-label-7"
+            checked={isCheckedPrinter}
+            onChange={() => {
+              setIsCheckedPrinter(!isCheckedPrinter);
+              setHideRoomsWithoutPrinter(!isCheckedPrinter);
             }}
           />
         </div>

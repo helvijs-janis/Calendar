@@ -158,28 +158,28 @@ export default function Create() {
             // type="submit"
             // onClick={inputCheck()}
             onClick={handleSubmitPoga}
-            // {() => {
-            //   let startTimeData = getMeADate(
-            //     document.getElementById('sakumaDatums').value,
-            //     document.getElementById('sakumaLaiks').value,
-            //   );
-            //   let endTimeData = getMeADate(
-            //     document.getElementById('beiguDatums').value,
-            //     document.getElementById('beiguLaiks').value,
-            //   );
-            //   startTimeData = startTimeData.replace('/', '-');
-            //   endTimeData = endTimeData.replace('/', '-');
-            //   const data = {};
-            //   data.title = document.getElementById('NosaukumaIevade').value;
-            //   data.resourceId = currentTelpa.id;// document.getElementById('TelpasIevade').value;
-            //   data.start = startTimeData;
-            //   data.end = endTimeData;
-            //   data.studyProgramId = document.getElementById('atbildigaFakultate').value;
-            //   data.type = 'lekcija';
-            //   data.responsiblePerson = ['testaPasniedzejs'];
-            //   console.log(data);
-            //   // httpPost2('https://tone.id.lv/api/reservations/', data);
-            // }}
+          // {() => {
+          //   let startTimeData = getMeADate(
+          //     document.getElementById('sakumaDatums').value,
+          //     document.getElementById('sakumaLaiks').value,
+          //   );
+          //   let endTimeData = getMeADate(
+          //     document.getElementById('beiguDatums').value,
+          //     document.getElementById('beiguLaiks').value,
+          //   );
+          //   startTimeData = startTimeData.replace('/', '-');
+          //   endTimeData = endTimeData.replace('/', '-');
+          //   const data = {};
+          //   data.title = document.getElementById('NosaukumaIevade').value;
+          //   data.resourceId = currentTelpa.id;// document.getElementById('TelpasIevade').value;
+          //   data.start = startTimeData;
+          //   data.end = endTimeData;
+          //   data.studyProgramId = document.getElementById('atbildigaFakultate').value;
+          //   data.type = 'lekcija';
+          //   data.responsiblePerson = ['testaPasniedzejs'];
+          //   console.log(data);
+          //   // httpPost2('https://tone.id.lv/api/reservations/', data);
+          // }}
           >
             Pievienot
           </Button>

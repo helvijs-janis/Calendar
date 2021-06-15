@@ -79,17 +79,17 @@ export default function FormTabA({ setCurrentFakultate, setCurrentPrieksmets, se
       </FormGroup>
       <FormGroup>
         <Dropdown
-                          /*
-                          <Autocomplete
-                            id="combo-box-demo"
-                            options={profesori}
-                            getOptionLabel={(option) => option.text}
-                            style={{ width: 300 }}
-                            renderInput={(params) =>
-                            <TextField {...params} label="Combo box" variant="outlined" />}
-                            jāņem MultiSelect filterable
-                          />
-                          */
+          /*
+          <Autocomplete
+            id="combo-box-demo"
+            options={profesori}
+            getOptionLabel={(option) => option.text}
+            style={{ width: 300 }}
+            renderInput={(params) =>
+            <TextField {...params} label="Combo box" variant="outlined" />}
+            jāņem MultiSelect filterable
+          />
+          */
           id="default"
           titleText="Atbildīgais"
           label="Dropdown menu options"

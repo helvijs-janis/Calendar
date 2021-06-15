@@ -32,9 +32,7 @@ export function fetchPersons() {
 }
 
 export function fetchFaculties() {
-  return useQuery('faculties', async () => axios
-    .get('https://tone.id.lv/api2/faculties')
-    .then((res) => res.data));
+  return useQuery('faculties', async () => axios.get('https://tone.id.lv/api2/faculties').then((res) => res.data));
 }
 
 export function fetchRooms() {
