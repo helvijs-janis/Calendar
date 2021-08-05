@@ -32,7 +32,7 @@ export const formatRoomInfo = (info, buildings) => {
   const room = info.resource.title
   const id = info.resource.extendedProps.buildingId
   console.log(`buildings`, buildings)
-  const buildingTitle = buildings[id].title
+  const buildingTitle = buildings.find((item) => item.id === id).title
   const result = `${room} - ${buildingTitle}`
 
   return result
