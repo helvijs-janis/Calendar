@@ -1,24 +1,61 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "settings": {
+    // default from https://github.com/yannickcr/eslint-plugin-react#configuration
+    "react": {
+      "createClass": "createReactClass", // Regex for Component Factory to use,
+      // default to "createReactClass"
+      "pragma": "React", // Pragma to use, default to "React"
+      "fragment": "Fragment", // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      "version": "detect", // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+      "flowVersion": "0.53" // Flow version
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+    "propWrapperFunctions": [
+      // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+      "forbidExtraProps",
+      { "property": "freeze", "object": "Object" },
+      { "property": "myFavoriteWrapper" }
     ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "linebreak-style": 0
-    }
+    "linkComponents": [
+      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      "Hyperlink",
+      { "name": "Link", "linkAttribute": "to" }
+    ]
+  },
+  "rules": {
+    "func-style": ["error", "expression"], // https://eslint.org/docs/rules/func-style
+    "no-new-func": "error", // https://eslint.org/docs/rules/no-new-func
+    "no-param-reassign": "error", // https://eslint.org/docs/rules/no-param-reassign
+    "arrow-parens": ["error", "always"], // https://eslint.org/docs/rules/arrow-parens
+    "arrow-body-style": ["error", "as-needed"], // https://eslint.org/docs/rules/arrow-body-style
+    "no-invalid-this": "error", // https://eslint.org/docs/rules/no-invalid-this
+    "prefer-arrow-callback": "error", // https://eslint.org/docs/rules/prefer-arrow-callback
+    "prefer-const": "error", //https://eslint.org/docs/rules/prefer-const
+    "no-var": "error", //https://eslint.org/docs/rules/no-var
+    "no-undef": "error", //https://eslint.org/docs/rules/no-undef
+    "react/prop-types": "off",
+    "no-unused-vars": "error", //https://eslint.org/docs/rules/no-unused-vars
+    "no-eval": "error", //https://eslint.org/docs/rules/no-eval#disallow-eval-no-eval
+    "no-implied-eval": "error", //https://eslint.org/docs/rules/no-implied-eval,
+    "eqeqeq": "error", //https://eslint.org/docs/rules/eqeqeq#require-and-eqeqeq
+    "no-with": "error", //https://eslint.org/docs/rules/no-with#disallow-with-statements-no-with
+    "no-plusplus": "error" //https://eslint.org/docs/rules/no-plusplus#disallow-the-unary-operators-and-no-plusplus
+  },
+  "globals": {
+    "REACT_APP_STATE": true
+  }
 }

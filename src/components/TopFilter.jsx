@@ -1,35 +1,33 @@
-import { useState, React } from 'react';
+/* eslint-disable no-unused-vars */
+import { useState, React } from 'react'
 import {
-  Grid, Row, Column, Accordion, AccordionItem, Dropdown, TextInput,
-} from 'carbon-components-react';
-import { fetchFaculties } from '../queries/RoomQueries';
-import { useReservationContext } from './ReservationContext';
+  Grid,
+  Row,
+  Column,
+  Accordion,
+  AccordionItem,
+  Dropdown,
+  TextInput,
+} from 'carbon-components-react'
+import { fetchFaculties, useFaculties } from '../queries/RoomQueries'
+import { useReservationContext } from './ReservationContext'
 
-let initialFaculties;
-try {
-  initialFaculties = JSON.parse(localStorage.getItem('faculties')) ?? [];
-} catch {
-  initialFaculties = [];
-}
-
-const options = initialFaculties;
-options.splice(0, 0, {
-  id: 0,
-  fullname: 'Visas fakultātes',
-});
-
-const courses = ['Visi', '1', '2', '3', '4', '5', '6'];
+const courses = ['Visi', '1', '2', '3', '4', '5', '6']
 
 const TopFilter = () => {
+  const option = { id: -1, fullname: 'Visas fakultātes' }
+
   const {
-    setSelectedFaculty, setSelectedCourse, setSelectedSubject,
-  } = useReservationContext();
+    setSelectedFaculty,
+    setSelectedCourse,
+    setSelectedSubject,
+  } = useReservationContext()
 
-  const faculties = fetchFaculties();
+  const faculties = useFaculties()
 
-  const [currentFaculty, setCurrentFaculty] = useState(options[0]);
-  const [currentCourse, setCurrentCourse] = useState(courses[0]);
-  const [currentSubject, setCurrentSubject] = useState('');
+  const [currentFaculty, setCurrentFaculty] = useState()
+  const [currentCourse, setCurrentCourse] = useState()
+  const [currentSubject, setCurrentSubject] = useState('')
 
   return faculties.isLoading ? (
     'Loading...'
@@ -45,15 +43,16 @@ const TopFilter = () => {
                   titleText="Fakultāte"
                   label="Izvēlieties fakultāti"
                   light
-                  items={options}
+                  items={faculties.data}
                   itemToString={(item) => (item ? item.fullname : '')}
                   onChange={({ selectedItem }) => {
-                    setCurrentFaculty(selectedItem);
-                    setSelectedFaculty(selectedItem.id);
+                    setCurrentFaculty(selectedItem)
+                    setSelectedFaculty(selectedItem.id)
                   }}
                   selectedItem={currentFaculty}
                 />
               </div>
+              {console.log('faculties.data :>> ', faculties.data)}
             </Column>
             <Column lg={2}>
               <div>
@@ -64,8 +63,8 @@ const TopFilter = () => {
                   light
                   items={courses}
                   onChange={({ selectedItem }) => {
-                    setCurrentCourse(selectedItem);
-                    setSelectedCourse(selectedItem);
+                    setCurrentCourse(selectedItem)
+                    setSelectedCourse(selectedItem)
                   }}
                   selectedItem={currentCourse}
                 />
@@ -79,8 +78,8 @@ const TopFilter = () => {
                   placeholder="Praktiskā ekoloģija"
                   value={currentSubject}
                   onChange={(event) => {
-                    setCurrentSubject(event.target.value);
-                    setSelectedSubject(event.target.value);
+                    setCurrentSubject(event.target.value)
+                    setSelectedSubject(event.target.value)
                   }}
                 />
               </div>
@@ -89,7 +88,7 @@ const TopFilter = () => {
         </Grid>
       </AccordionItem>
     </Accordion>
-  );
-};
+  )
+}
 
-export default TopFilter;
+export default TopFilter

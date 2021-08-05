@@ -1,29 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Add16 } from '@carbon/icons-react';
+import React, { useState, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Add16 } from '@carbon/icons-react'
 import {
   SideNav,
   SideNavItems,
-} from 'carbon-components-react/lib/components/UIShell';
+} from 'carbon-components-react/lib/components/UIShell'
 import {
-  Dropdown, Button, Checkbox, NumberInput,
-} from 'carbon-components-react';
-import { useRoomsContext } from './RoomContext';
-import { fetchBuildings } from '../queries/RoomQueries';
+  Dropdown,
+  Button,
+  Checkbox,
+  NumberInput,
+  MultiSelect,
+} from 'carbon-components-react'
+import { useRoomsContext } from './RoomContext'
+import { fetchBuildings } from '../queries/RoomQueries'
 
-let initialBuildings;
+let initialBuildings
 try {
-  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? [];
+  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? []
 } catch {
-  initialBuildings = [];
+  initialBuildings = []
 }
 
-const options = initialBuildings;
+const options = initialBuildings
 options.splice(0, 0, {
   id: 4,
   title: 'Visas ēkas',
-});
+})
 
 const Sidebar = () => {
   const {
@@ -36,23 +40,30 @@ const Sidebar = () => {
     setHideRoomsWithoutProjector,
     setHideRoomsWithoutLargeBlackboard,
     setHideRoomsWithoutPrinter,
-  } = useRoomsContext();
+  } = useRoomsContext()
 
-  const items = fetchBuildings();
+  const items = fetchBuildings()
 
-  const [currentItem, setCurrentItem] = useState(options[0]);
-  const [isCheckedHideUnavailableRooms, setIsCheckedHideUnavailableRooms] = useState(false);
-  const [currentOccupancy, setCurrentOccupancy] = useState(50);
+  const [currentItem, setCurrentItem] = useState(options[0])
+  const [
+    isCheckedHideUnavailableRooms,
+    setIsCheckedHideUnavailableRooms,
+  ] = useState(false)
+  const [currentOccupancy, setCurrentOccupancy] = useState(50)
 
-  const [isCheckedChalkBlackboard, setIsCheckedChalkBlackboard] = useState(false);
-  const [isCheckedTV, setIsCheckedTV] = useState(false);
-  const [isCheckedAudio, setIsCheckedAudio] = useState(false);
-  const [isCheckedProjector, setIsCheckedProjector] = useState(false);
-  const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(false);
-  const [isCheckedPrinter, setIsCheckedPrinter] = useState(false);
+  const [isCheckedChalkBlackboard, setIsCheckedChalkBlackboard] = useState(
+    false,
+  )
+  const [isCheckedTV, setIsCheckedTV] = useState(false)
+  const [isCheckedAudio, setIsCheckedAudio] = useState(false)
+  const [isCheckedProjector, setIsCheckedProjector] = useState(false)
+  const [isCheckedLargeBlackboard, setIsCheckedLargeBlackboard] = useState(
+    false,
+  )
+  const [isCheckedPrinter, setIsCheckedPrinter] = useState(false)
 
-  const history = useHistory();
-  const navigateToCreate = useCallback(() => history.push('/create'), [history]);
+  const history = useHistory()
+  const navigateToCreate = useCallback(() => history.push('/create'), [history])
 
   return items.isLoading ? (
     'Loading...'
@@ -81,11 +92,25 @@ const Sidebar = () => {
               items={options}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => {
-                setCurrentItem(selectedItem);
-                setSelectedBuildingOptions(selectedItem.id);
+                setCurrentItem(selectedItem)
+                setSelectedBuildingOptions(selectedItem.id)
               }}
               selectedItem={currentItem}
             />
+            {/* {console.log('items :>> ', items)}
+            <MultiSelect
+              id="default"
+              titleText="Ēka"
+              label="Izvēlieties ēku"
+              items={items.data}
+              itemToString={(item) => (item ? item.title : '')}
+              onChange={(e) => {
+                console.log('selectedItem', e.selectedItems)
+                // setCurrentItem(selectedItem)
+                setSelectedBuildingOptions(e.selectedItems)
+              }}
+              selectedItem={currentItem}
+            /> */}
           </div>
         </div>
         <div className="demo-app-sidebar-section">
@@ -94,8 +119,8 @@ const Sidebar = () => {
             id="checkbox-label-1"
             checked={isCheckedHideUnavailableRooms}
             onChange={() => {
-              setIsCheckedHideUnavailableRooms(!isCheckedHideUnavailableRooms);
-              setHideUnavailableRooms(!isCheckedHideUnavailableRooms);
+              setIsCheckedHideUnavailableRooms(!isCheckedHideUnavailableRooms)
+              setHideUnavailableRooms(!isCheckedHideUnavailableRooms)
             }}
           />
         </div>
@@ -109,9 +134,9 @@ const Sidebar = () => {
             invalidText="Number is not valid"
             step={10}
             onChange={(evt) => {
-              const newValue = evt.imaginaryTarget.valueAsNumber;
-              setCurrentOccupancy(newValue);
-              setSelectedOccupancy(newValue);
+              const newValue = evt.imaginaryTarget.valueAsNumber
+              setCurrentOccupancy(newValue)
+              setSelectedOccupancy(newValue)
             }}
           />
         </div>
@@ -122,8 +147,8 @@ const Sidebar = () => {
             id="checkbox-label-2"
             checked={isCheckedChalkBlackboard}
             onChange={() => {
-              setIsCheckedChalkBlackboard(!isCheckedChalkBlackboard);
-              setHideRoomsWithoutChalkBlackboard(!isCheckedChalkBlackboard);
+              setIsCheckedChalkBlackboard(!isCheckedChalkBlackboard)
+              setHideRoomsWithoutChalkBlackboard(!isCheckedChalkBlackboard)
             }}
           />
           <Checkbox
@@ -131,8 +156,8 @@ const Sidebar = () => {
             id="checkbox-label-3"
             checked={isCheckedTV}
             onChange={() => {
-              setIsCheckedTV(!isCheckedTV);
-              setHideRoomsWithoutTV(!isCheckedTV);
+              setIsCheckedTV(!isCheckedTV)
+              setHideRoomsWithoutTV(!isCheckedTV)
             }}
           />
           <Checkbox
@@ -140,8 +165,8 @@ const Sidebar = () => {
             id="checkbox-label-4"
             checked={isCheckedAudio}
             onChange={() => {
-              setIsCheckedAudio(!isCheckedAudio);
-              setHideRoomsWithoutAudio(!isCheckedAudio);
+              setIsCheckedAudio(!isCheckedAudio)
+              setHideRoomsWithoutAudio(!isCheckedAudio)
             }}
           />
           <Checkbox
@@ -149,8 +174,8 @@ const Sidebar = () => {
             id="checkbox-label-5"
             checked={isCheckedProjector}
             onChange={() => {
-              setIsCheckedProjector(!isCheckedProjector);
-              setHideRoomsWithoutProjector(!isCheckedProjector);
+              setIsCheckedProjector(!isCheckedProjector)
+              setHideRoomsWithoutProjector(!isCheckedProjector)
             }}
           />
           <Checkbox
@@ -158,8 +183,8 @@ const Sidebar = () => {
             id="checkbox-label-6"
             checked={isCheckedLargeBlackboard}
             onChange={() => {
-              setIsCheckedLargeBlackboard(!isCheckedLargeBlackboard);
-              setHideRoomsWithoutLargeBlackboard(!isCheckedLargeBlackboard);
+              setIsCheckedLargeBlackboard(!isCheckedLargeBlackboard)
+              setHideRoomsWithoutLargeBlackboard(!isCheckedLargeBlackboard)
             }}
           />
           <Checkbox
@@ -167,14 +192,14 @@ const Sidebar = () => {
             id="checkbox-label-7"
             checked={isCheckedPrinter}
             onChange={() => {
-              setIsCheckedPrinter(!isCheckedPrinter);
-              setHideRoomsWithoutPrinter(!isCheckedPrinter);
+              setIsCheckedPrinter(!isCheckedPrinter)
+              setHideRoomsWithoutPrinter(!isCheckedPrinter)
             }}
           />
         </div>
       </SideNavItems>
     </SideNav>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

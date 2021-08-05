@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react';
+/* eslint-disable func-style */
+import { useState, useEffect } from 'react'
 
-const baseUrl = 'https://tone.id.lv/api2/';
+const baseUrl = 'https://tone.id.lv/api2/'
 
 export default function useFetch(url) {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function init() {
       try {
-        const response = await fetch(baseUrl + url);
+        const response = await fetch(baseUrl + url)
         if (response.ok) {
-          const json = await response.json();
-          setData(json);
+          const json = await response.json()
+          setData(json)
         } else {
-          throw response;
+          throw response
         }
       } catch (e) {
-        setError(e);
+        setError(e)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-    init();
-  }, [url]);
+    init()
+  }, [url])
 
-  return { data, error, loading };
+  return { data, error, loading }
 }
