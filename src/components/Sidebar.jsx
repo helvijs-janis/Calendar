@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Add16 } from '@carbon/icons-react'
@@ -11,23 +10,9 @@ import {
   Button,
   Checkbox,
   NumberInput,
-  MultiSelect,
 } from 'carbon-components-react'
 import { useRoomsContext } from './RoomContext'
-import { fetchBuildings } from '../queries/RoomQueries'
-
-let initialBuildings
-try {
-  initialBuildings = JSON.parse(localStorage.getItem('buildings')) ?? []
-} catch {
-  initialBuildings = []
-}
-
-const options = initialBuildings
-options.splice(0, 0, {
-  id: 4,
-  title: 'Visas ēkas',
-})
+import { useBuildings } from '../queries/RoomQueries'
 
 const Sidebar = () => {
   const {
@@ -42,9 +27,9 @@ const Sidebar = () => {
     setHideRoomsWithoutPrinter,
   } = useRoomsContext()
 
-  const items = fetchBuildings()
+  const buildings = useBuildings()
 
-  const [currentItem, setCurrentItem] = useState(options[0])
+  const [currentItem, setCurrentItem] = useState()
   const [
     isCheckedHideUnavailableRooms,
     setIsCheckedHideUnavailableRooms,
@@ -65,7 +50,7 @@ const Sidebar = () => {
   const history = useHistory()
   const navigateToCreate = useCallback(() => history.push('/create'), [history])
 
-  return items.isLoading ? (
+  return buildings.isLoading ? (
     'Loading...'
   ) : (
     <SideNav aria-label="Side navigation">
@@ -89,7 +74,7 @@ const Sidebar = () => {
               id="default"
               titleText="Ēka"
               label="Izvēlieties ēku"
-              items={options}
+              items={buildings.data}
               itemToString={(item) => (item ? item.title : '')}
               onChange={({ selectedItem }) => {
                 setCurrentItem(selectedItem)

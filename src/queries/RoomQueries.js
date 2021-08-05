@@ -43,18 +43,30 @@ export function fetchFaculties() {
   )
 }
 
+export function fetchRooms() {
+  return useQuery('rooms', async () =>
+    axios.get('https://tone.id.lv/api2/rooms').then((res) => res.data),
+  )
+}
+
 export function useFaculties() {
-  return useQuery('faculties', async () =>
+  return useQuery('facultiesDropdown', async () =>
     axios.get('https://tone.id.lv/api2/faculties').then((response) => {
       const option = { id: -1, fullname: 'Visas fakultātes' }
       response.data.unshift(option)
+      console.log(`responseFaculties`, response.data)
       return response.data
     }),
   )
 }
 
-export function fetchRooms() {
-  return useQuery('rooms', async () =>
-    axios.get('https://tone.id.lv/api2/rooms').then((res) => res.data),
+export function useBuildings() {
+  return useQuery('buildingsDropdown', async () =>
+    axios.get('https://tone.id.lv/api2/buildings').then((response) => {
+      const option = { id: -1, title: 'Visas ēkas' }
+      response.data.unshift(option)
+      console.log(`responseBuildings`, response.data)
+      return response.data
+    }),
   )
 }

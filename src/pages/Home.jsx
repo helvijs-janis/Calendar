@@ -1,20 +1,24 @@
-import React, { useState, useCallback } from 'react';
-import { Grid, Row, Column } from 'carbon-components-react';
-import { useHistory } from 'react-router-dom';
-import EventCalendar from '../components/EventCalendar';
-import HeaderBaseWActions from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import TopFilter from '../components/TopFilter';
-import Modal from '../components/Modal';
+import React, { useState, useCallback } from 'react'
+import { Grid, Row, Column } from 'carbon-components-react'
+import { useHistory } from 'react-router-dom'
+import EventCalendar from '../components/EventCalendar'
+import HeaderBaseWActions from '../components/Header'
+import Sidebar from '../components/Sidebar'
+import TopFilter from '../components/TopFilter'
+import ModalReservation from '../components/ModalReservation'
+import { fetchBuildings } from '../queries/RoomQueries'
 
 export default function Home() {
-  const [open, setOpen] = useState(false);
-  const [dateInfo, setDateInfo] = useState({});
+  const [open, setOpen] = useState(false)
+  const [dateInfo, setDateInfo] = useState({})
+  const buildingsQuery = fetchBuildings()
 
-  const history = useHistory();
-  const navigateToCreate = useCallback(() => history.push('/create'), [history]);
+  const history = useHistory()
+  const navigateToCreate = useCallback(() => history.push('/create'), [history])
 
-  return (
+  return buildingsQuery.isLoading ? (
+    'Loading...'
+  ) : (
     <>
       <HeaderBaseWActions />
       <Sidebar />
@@ -27,12 +31,13 @@ export default function Home() {
           </Column>
         </Row>
       </Grid>
-      <Modal
+      <ModalReservation
         open={open}
         setOpen={setOpen}
         navigateToCreate={navigateToCreate}
         dateInfo={dateInfo}
+        buildings={buildingsQuery.data}
       />
     </>
-  );
+  )
 }

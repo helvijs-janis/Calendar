@@ -15,8 +15,6 @@ import { useReservationContext } from './ReservationContext'
 const courses = ['Visi', '1', '2', '3', '4', '5', '6']
 
 const TopFilter = () => {
-  const option = { id: -1, fullname: 'Visas fakultātes' }
-
   const {
     setSelectedFaculty,
     setSelectedCourse,
@@ -52,7 +50,6 @@ const TopFilter = () => {
                   selectedItem={currentFaculty}
                 />
               </div>
-              {console.log('faculties.data :>> ', faculties.data)}
             </Column>
             <Column lg={2}>
               <div>

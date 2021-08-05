@@ -1,9 +1,7 @@
-/* eslint-disable func-style */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import useFetch from '../services/useFetch.js'
 import { useReservationContext } from './ReservationContext'
 
 const RoomContext = React.createContext(null)
@@ -15,7 +13,7 @@ const getRooms = async () => {
   return result
 }
 
-export function RoomsProvider({ children }) {
+export const RoomsProvider = ({ children }) => {
   const roomsQuery = useQuery('rooms', getRooms)
 
   const [initialRooms, setInitialRooms] = useState([])
@@ -26,17 +24,10 @@ export function RoomsProvider({ children }) {
     }
   }, [roomsQuery])
 
-  const { data: buildings } = useFetch('buildings')
-
-  useEffect(
-    () => localStorage.setItem('buildings', JSON.stringify(buildings)),
-    [buildings],
-  )
-
   const { initialReservations } = useReservationContext()
   const [filteredRooms, setFilteredRooms] = useState([])
 
-  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(4)
+  const [selectedBuildingOptions, setSelectedBuildingOptions] = useState(-1)
   const [hideUnavailableRooms, setHideUnavailableRooms] = useState(false)
   const [selectedOccupancy, setSelectedOccupancy] = useState(50)
 
@@ -56,7 +47,7 @@ export function RoomsProvider({ children }) {
   const [hideRoomsWithoutPrinter, setHideRoomsWithoutPrinter] = useState(false)
 
   const filterByBuilding = (array) => {
-    if (selectedBuildingOptions === 4) {
+    if (selectedBuildingOptions === -1) {
       return array
     }
 
@@ -179,7 +170,7 @@ export function RoomsProvider({ children }) {
   )
 }
 
-export function useRoomsContext() {
+export const useRoomsContext = () => {
   const context = useContext(RoomContext)
   if (!context) {
     throw new Error('useRoomsContext must be used within a ReservationProvider')

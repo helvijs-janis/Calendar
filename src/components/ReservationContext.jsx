@@ -56,12 +56,12 @@ export const ReservationsProvider = (props) => {
     }
   }, [facultiesQuery])
 
-  const [selectedFaculty, setSelectedFaculty] = useState(0)
+  const [selectedFaculty, setSelectedFaculty] = useState(-1)
   const [selectedCourse, setSelectedCourse] = useState('Visi')
   const [selectedSubject, setSelectedSubject] = useState('')
 
   const filterByFaculty = (array) => {
-    if (selectedFaculty === 0) {
+    if (selectedFaculty === -1) {
       return array
     }
 

@@ -1,12 +1,5 @@
 import { format, add } from 'date-fns'
 
-let buildings
-try {
-  buildings = JSON.parse(localStorage.getItem('buildings')) ?? []
-} catch {
-  buildings = []
-}
-
 export const formatDate = (info) => {
   const dateHelper = add(info.date, {
     hours: 1,
@@ -34,11 +27,13 @@ export const formatDateAddingHourAndHalf = (info) => {
   return result
 }
 
-export const formatRoomInfo = (info) => {
+export const formatRoomInfo = (info, buildings) => {
+  console.log(`info`, info)
   const room = info.resource.title
   const id = info.resource.extendedProps.buildingId
-  const building = buildings[id].title
-  const result = `${room} - ${building}`
+  console.log(`buildings`, buildings)
+  const buildingTitle = buildings[id].title
+  const result = `${room} - ${buildingTitle}`
 
   return result
 }
