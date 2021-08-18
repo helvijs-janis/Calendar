@@ -1,23 +1,26 @@
-import React, { useState, useCallback } from 'react'
-import { Grid, Row, Column } from 'carbon-components-react'
-import { useHistory } from 'react-router-dom'
-import EventCalendar from '../components/EventCalendar'
-import HeaderBaseWActions from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import TopFilter from '../components/TopFilter'
-import ModalReservation from '../components/ModalReservation'
-import { fetchBuildings } from '../queries/RoomQueries'
+import React, { useState, useCallback } from "react";
+import { Grid, Row, Column } from "carbon-components-react";
+import { useHistory } from "react-router-dom";
+import EventCalendar from "../components/EventCalendar";
+import HeaderBaseWActions from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import TopFilter from "../components/TopFilter";
+import { fetchBuildings } from "../queries/RoomQueries";
+import ModalCreateForm from "../components/ModalCreateForm";
 
 export default function Home() {
-  const [open, setOpen] = useState(false)
-  const [dateInfo, setDateInfo] = useState({})
-  const buildingsQuery = fetchBuildings()
+  const [open, setOpen] = useState(false);
+  const [dateInfo, setDateInfo] = useState({});
+  const buildingsQuery = fetchBuildings();
 
-  const history = useHistory()
-  const navigateToCreate = useCallback(() => history.push('/create'), [history])
+  const history = useHistory();
+  const navigateToCreate = useCallback(
+    () => history.push("/create"),
+    [history]
+  );
 
   return buildingsQuery.isLoading ? (
-    'Loading...'
+    "Loading..."
   ) : (
     <>
       <HeaderBaseWActions />
@@ -31,13 +34,15 @@ export default function Home() {
           </Column>
         </Row>
       </Grid>
-      <ModalReservation
-        open={open}
-        setOpen={setOpen}
-        navigateToCreate={navigateToCreate}
-        dateInfo={dateInfo}
-        buildings={buildingsQuery.data}
-      />
+      {Object.keys(dateInfo).length > 0 && (
+        <ModalCreateForm
+          open={open}
+          setOpen={setOpen}
+          navigateToCreate={navigateToCreate}
+          dateInfo={dateInfo}
+          buildings={buildingsQuery.data}
+        />
+      )}
     </>
-  )
+  );
 }

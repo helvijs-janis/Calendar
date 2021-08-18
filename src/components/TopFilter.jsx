@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, React } from 'react'
+import { useState, React } from "react";
 import {
   Grid,
   Row,
@@ -8,27 +8,24 @@ import {
   AccordionItem,
   Dropdown,
   TextInput,
-} from 'carbon-components-react'
-import { fetchFaculties, useFaculties } from '../queries/RoomQueries'
-import { useReservationContext } from './ReservationContext'
+} from "carbon-components-react";
+import { fetchFaculties, useFaculties } from "../queries/RoomQueries";
+import { useReservationContext } from "./ReservationContext";
 
-const courses = ['Visi', '1', '2', '3', '4', '5', '6']
+const courses = ["Visi", "1", "2", "3", "4", "5", "6"];
 
 const TopFilter = () => {
-  const {
-    setSelectedFaculty,
-    setSelectedCourse,
-    setSelectedSubject,
-  } = useReservationContext()
+  const { setSelectedFaculty, setSelectedCourse, setSelectedSubject } =
+    useReservationContext();
 
-  const faculties = useFaculties()
+  const faculties = useFaculties();
 
-  const [currentFaculty, setCurrentFaculty] = useState()
-  const [currentCourse, setCurrentCourse] = useState()
-  const [currentSubject, setCurrentSubject] = useState('')
+  const [currentFaculty, setCurrentFaculty] = useState();
+  const [currentCourse, setCurrentCourse] = useState();
+  const [currentSubject, setCurrentSubject] = useState("");
 
   return faculties.isLoading ? (
-    'Loading...'
+    "Loading..."
   ) : (
     <Accordion>
       <AccordionItem title="Pasākuma filtri">
@@ -42,10 +39,10 @@ const TopFilter = () => {
                   label="Izvēlieties fakultāti"
                   light
                   items={faculties.data}
-                  itemToString={(item) => (item ? item.fullname : '')}
+                  itemToString={(item) => (item ? item.fullname : "")}
                   onChange={({ selectedItem }) => {
-                    setCurrentFaculty(selectedItem)
-                    setSelectedFaculty(selectedItem.id)
+                    setCurrentFaculty(selectedItem);
+                    setSelectedFaculty(selectedItem.id);
                   }}
                   selectedItem={currentFaculty}
                 />
@@ -60,8 +57,8 @@ const TopFilter = () => {
                   light
                   items={courses}
                   onChange={({ selectedItem }) => {
-                    setCurrentCourse(selectedItem)
-                    setSelectedCourse(selectedItem)
+                    setCurrentCourse(selectedItem);
+                    setSelectedCourse(selectedItem);
                   }}
                   selectedItem={currentCourse}
                 />
@@ -75,8 +72,8 @@ const TopFilter = () => {
                   placeholder="Praktiskā ekoloģija"
                   value={currentSubject}
                   onChange={(event) => {
-                    setCurrentSubject(event.target.value)
-                    setSelectedSubject(event.target.value)
+                    setCurrentSubject(event.target.value);
+                    setSelectedSubject(event.target.value);
                   }}
                 />
               </div>
@@ -85,7 +82,7 @@ const TopFilter = () => {
         </Grid>
       </AccordionItem>
     </Accordion>
-  )
-}
+  );
+};
 
-export default TopFilter
+export default TopFilter;

@@ -1,7 +1,10 @@
 import {
-  Calendar32, Group32, UserAvatar32, Settings32,
-} from '@carbon/icons-react';
-import { React } from 'react';
+  Calendar32,
+  Group32,
+  UserAvatar32,
+  Settings32,
+} from "@carbon/icons-react";
+import { React } from "react";
 import {
   Header,
   HeaderName,
@@ -9,7 +12,7 @@ import {
   HeaderGlobalBar,
   HeaderGlobalAction,
   HeaderContainer,
-} from 'carbon-components-react/lib/components/UIShell';
+} from "carbon-components-react/lib/components/UIShell";
 
 const HeaderBaseWActions = () => (
   <HeaderContainer
@@ -19,8 +22,12 @@ const HeaderBaseWActions = () => (
           <HeaderName href="#" prefix="">
             LU
           </HeaderName>
-          <HeaderMenuItem href="#"><Calendar32 /></HeaderMenuItem>
-          <HeaderMenuItem href="#"><Group32 /></HeaderMenuItem>
+          <HeaderMenuItem href="#">
+            <Calendar32 />
+          </HeaderMenuItem>
+          <HeaderMenuItem href="#">
+            <Group32 />
+          </HeaderMenuItem>
           <HeaderGlobalBar>
             <HeaderGlobalAction aria-label="Search">
               <Settings32 />
